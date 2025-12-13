@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PlanUp</title>
 
 <link rel="manifest" href="manifest.json">
@@ -24,44 +24,26 @@ header {
   padding: 16px;
   font-size: 22px;
   font-weight: bold;
-  background: #fff;
+  background: white;
   border-bottom: 1px solid #ddd;
 }
 
-/* MAIN */
 main {
   padding: 16px;
 }
 
 .card {
-  background: #fff;
+  background: white;
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
 }
 
 .total {
   font-size: 22px;
   font-weight: bold;
   color: #e53935;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #111;
-  color: white;
-  width: 100%;
 }
 
 ul {
@@ -76,14 +58,14 @@ li {
   border-bottom: 1px solid #eee;
 }
 
-/* BOTTOM NAV (UNCHANGED) */
+/* BOTTOM NAV */
 nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 64px;
-  background: #fff;
+  background: white;
   border-top: 1px solid #ddd;
   display: flex;
 }
@@ -91,45 +73,46 @@ nav {
 nav button {
   flex: 1;
   background: none;
-  color: #111;
+  border: none;
   font-size: 14px;
 }
 
-/* FAB */
+/* FAN (BOTTOM RIGHT) */
 .fab-wrapper {
   position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+  right: 16px;
+  bottom: 80px;
+  z-index: 20;
 }
 
 .fab {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #111;
-  color: #fff;
-  font-size: 28px;
+  background: white;
+  color: #111;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform .25s ease;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.15),
+    inset 0 0 0 1px #e0e0e0;
+  transition: transform .25s ease, rotate .25s ease;
 }
 
 .fab.expanded {
-  transform: translateY(12px);
+  transform: translateY(6px) rotate(180deg);
 }
 
-/* FAN MENU */
+/* FAN ITEMS */
 .fan {
   position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 68px;
+  right: 0;
   display: none;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .fan.show {
@@ -137,8 +120,15 @@ nav button {
 }
 
 .fan button {
-  width: 180px;
-  background: #111;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.18),
+    inset 0 0 0 1px #e5e5e5;
+  font-size: 16px;
 }
 
 /* SECTIONS */
@@ -153,8 +143,6 @@ nav button {
 <header>PlanUp</header>
 
 <main>
-
-<!-- HOME -->
 <section id="home">
   <div class="card">
     <div>Total Estimated</div>
@@ -163,27 +151,24 @@ nav button {
   <ul id="items"></ul>
 </section>
 
-<!-- INSIGHTS -->
 <section id="insights" class="hidden">
   <div class="card">Insights coming soon 📊</div>
 </section>
 
-<!-- PROFILE -->
 <section id="profile" class="hidden">
   <div class="card">Profile coming soon 👤</div>
 </section>
-
 </main>
 
-<!-- PLUS FAN -->
+<!-- FAN -->
 <div class="fab-wrapper">
   <div class="fan" id="fan">
-    <button onclick="addItem()">➕ Add Item</button>
-    <button onclick="openRecipes()">📖 Recipes</button>
-    <button onclick="openFrequent()">⭐ Frequent Items</button>
-    <button onclick="smartSort()">🧠 Smart Sort</button>
+    <button onclick="addItem()">➕</button>
+    <button onclick="alert('Recipes')">📖</button>
+    <button onclick="alert('Frequent')">⭐</button>
+    <button onclick="alert('Smart sort')">🧠</button>
   </div>
-  <div class="fab" id="fab" onclick="toggleFab()">+</div>
+  <div class="fab" id="fab" onclick="toggleFab()">⌃</div>
 </div>
 
 <!-- BOTTOM NAV -->
@@ -201,7 +186,6 @@ function toggleFab() {
   expanded = !expanded;
   document.getElementById("fan").classList.toggle("show");
   document.getElementById("fab").classList.toggle("expanded");
-  document.getElementById("fab").innerText = expanded ? "−" : "+";
 }
 
 function show(id) {
@@ -217,28 +201,9 @@ function addItem() {
   const price = Number(prompt("Price?"));
   if (!name || qty <= 0 || price <= 0) return;
   items.push({ name, qty, price });
-  save();
+  localStorage.setItem("planup-items", JSON.stringify(items));
   render();
   toggleFab();
-}
-
-function openRecipes() {
-  alert("Recipes screen coming next 🍽️");
-  toggleFab();
-}
-
-function openFrequent() {
-  alert("Frequent items coming ⭐");
-  toggleFab();
-}
-
-function smartSort() {
-  alert("Smart sort applied 🧠");
-  toggleFab();
-}
-
-function save() {
-  localStorage.setItem("planup-items", JSON.stringify(items));
 }
 
 function render() {
@@ -258,4 +223,4 @@ render();
 </script>
 
 </body>
-</html>
+  </html>
