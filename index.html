@@ -1,40 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PlanUp</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PlanUp</title>
 
-  <!-- PWA basics -->
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="manifest" href="manifest.json" />
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+}
 
-    body {
-      margin: 0;
-      background: #f7f7f7;
-      color: #111;
-    }
+body {
+  margin: 0;
+  background: #f6f6f6;
+  padding-bottom: 120px;
+}
 
-    header {
-      padding: 16px;
-      font-size: 22px;
-      font-weight: bold;
-      background: white;
-      border-bottom: 1px solid #ddd;
-    }
+header {
+  padding: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
 
-    main {
-      padding: 16px;
-      padding-bottom: 90px;
-    }
+main {
+  padding: 16px;
+}
 
-    .card {
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  color: #e53935;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #111;
+  color: white;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* BOTTOM BAR */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 5;
+}
+
+.bottom-bar button {
+  background: none;
+  color: #111;
+  font-size: 14px;
+}
+
+/* FAB */
+.fab-wrapper {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .25s ease;
+}
+
+.fab.expanded {
+  transform: translateY(12px);
+}
+
+/* FAN MENU */
+.fan {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fan.show {
+  display: flex;
+}
+
+.fan button {
+  width: 160px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* SECTIONS */
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+
+<header>PlanUp</header>
+
+<main>
+<section id="list">
+  <div class="card">
+    <div>Total Estimated</div>
+    <div class="total">$<span id="total">0.00</span></div>
+  </div>
+  <ul id="items"></ul>
+</section>
+
+<section id="recipes" class="hidden">
+  <div class="card">Recipes 📖</div>
+</section>
+
+<section id="frequent" class="hidden">
+  <div class="card">Frequent Items ⭐</div>
+</section>
+
+<section id="smart" class="hidden">
+  <div class="card">Smart Sort 🧠</div>
+</section>
+</main>
+
+<!-- FAN -->
+<div class="fab-wrapper">
+  <div class="fan" id="fan">
+    <button onclick="openAdd()">➕ Add Item</button>
+    <button onclick="showSection('recipes')">📖 Recipes</button>
+  </div>
+  <div class="fab" id="fab" onclick="toggleFab()">+</div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button onclick="showSection('recipes')">📖</button>
+  <button onclick="showSection('frequent')">⭐</button>
+  <button onclick="showSection('smart')">🧠</button>
+</div>
+
+<script>
+let items = JSON.parse(localStorage.getItem("planup-items")) || [];
+let expanded = false;
+
+function toggleFab() {
+  expanded = !expanded;
+  document.getElementById("fan").classList.toggle("show");
+  document.getElementById("fab").classList.toggle("expanded");
+  document.getElementById("fab").innerText = expanded ? "−" : "+";
+}
+
+function showSection(id) {
+  ["list","recipes","frequent","smart"].forEach(s =>
+    document.getElementById(s).classList.add("hidden")
+  );
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function openAdd() {
+  const name = prompt("Item name?");
+  const qty = Number(prompt("Quantity?"));
+  const price = Number(prompt("Price?"));
+  if (!name || qty <= 0 || price <= 0) return;
+  items.push({name, qty, price});
+  localStorage.setItem("planup-items", JSON.stringify(items));
+  render();
+  toggleFab();
+}
+
+function render() {
+  const list = document.getElementById("items");
+  list.innerHTML = "";
+  let total = 0;
+  items.forEach(i => {
+    total += i.qty * i.price;
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${i.name} x${i.qty}</span><span>$${(i.qty*i.price).toFixed(2)}</span>`;
+    list.appendChild(li);
+  });
+  document.getElementById("total").innerText = total.toFixed(2);
+}
+
+render();
+</script>
+
+</body>
+  </html>    .card {
       background: white;
       border-radius: 14px;
       padding: 16px;
