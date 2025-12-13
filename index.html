@@ -8,6 +8,9 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 
+<!-- Google Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
 <style>
 * {
   box-sizing: border-box;
@@ -77,7 +80,7 @@ nav button {
   font-size: 14px;
 }
 
-/* FAN (BOTTOM RIGHT) */
+/* FAB WRAPPER */
 .fab-wrapper {
   position: fixed;
   right: 16px;
@@ -85,41 +88,41 @@ nav button {
   z-index: 20;
 }
 
+/* MAIN CHEVRON */
 .fab {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: white;
   color: #111;
-  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 2px 6px rgba(0,0,0,.15),
-    inset 0 0 0 1px #e0e0e0;
-  transition: transform .25s ease, rotate .25s ease;
+    0 3px 8px rgba(0,0,0,.18),
+    inset 0 0 0 1px #e2e2e2;
+  transition: transform .25s ease;
 }
 
-.fab.expanded {
-  transform: translateY(6px) rotate(180deg);
+.fab span {
+  font-size: 20px;
+  transition: transform .25s ease, opacity .25s ease;
 }
 
-/* FAN ITEMS */
+.fab.expanded span {
+  transform: scaleX(1.6);
+}
+
+/* FAN STACK */
 .fan {
   position: absolute;
-  bottom: 68px;
+  bottom: 0;
   right: 0;
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.fan.show {
-  display: flex;
 }
 
 .fan button {
+  position: absolute;
+  right: 3px;
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -128,7 +131,32 @@ nav button {
   box-shadow:
     0 3px 8px rgba(0,0,0,.18),
     inset 0 0 0 1px #e5e5e5;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(0) scale(.9);
+  transition:
+    transform .35s cubic-bezier(.22,1,.36,1),
+    opacity .25s ease;
+}
+
+/* FLOW UPWARD */
+.fan.show button:nth-child(1) {
+  transform: translateY(-56px);
+  opacity: 1;
+}
+.fan.show button:nth-child(2) {
+  transform: translateY(-112px);
+  opacity: 1;
+}
+.fan.show button:nth-child(3) {
+  transform: translateY(-168px);
+  opacity: 1;
+}
+.fan.show button:nth-child(4) {
+  transform: translateY(-224px);
+  opacity: 1;
 }
 
 /* SECTIONS */
@@ -152,23 +180,26 @@ nav button {
 </section>
 
 <section id="insights" class="hidden">
-  <div class="card">Insights coming soon 📊</div>
+  <div class="card">Insights coming soon</div>
 </section>
 
 <section id="profile" class="hidden">
-  <div class="card">Profile coming soon 👤</div>
+  <div class="card">Profile coming soon</div>
 </section>
 </main>
 
 <!-- FAN -->
 <div class="fab-wrapper">
   <div class="fan" id="fan">
-    <button onclick="addItem()">➕</button>
-    <button onclick="alert('Recipes')">📖</button>
-    <button onclick="alert('Frequent')">⭐</button>
-    <button onclick="alert('Smart sort')">🧠</button>
+    <button onclick="addItem()"><span class="material-icons-outlined">add</span></button>
+    <button><span class="material-icons-outlined">menu_book</span></button>
+    <button><span class="material-icons-outlined">star_outline</span></button>
+    <button><span class="material-icons-outlined">auto_awesome</span></button>
   </div>
-  <div class="fab" id="fab" onclick="toggleFab()">⌃</div>
+
+  <div class="fab" id="fab" onclick="toggleFab()">
+    <span class="material-icons-outlined">expand_less</span>
+  </div>
 </div>
 
 <!-- BOTTOM NAV -->
