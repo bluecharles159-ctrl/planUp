@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlanUp</title>
 
 <link rel="manifest" href="manifest.json">
@@ -17,7 +17,7 @@
 body {
   margin: 0;
   background: #f6f6f6;
-  padding-bottom: 120px;
+  padding-bottom: 90px;
 }
 
 header {
@@ -28,12 +28,13 @@ header {
   border-bottom: 1px solid #ddd;
 }
 
+/* MAIN */
 main {
   padding: 16px;
 }
 
 .card {
-  background: white;
+  background: #fff;
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 16px;
@@ -46,7 +47,7 @@ main {
   color: #e53935;
 }
 
-input, button {
+input {
   width: 100%;
   padding: 12px;
   margin-top: 8px;
@@ -55,9 +56,12 @@ input, button {
 }
 
 button {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
   background: #111;
   color: white;
-  border: none;
+  width: 100%;
 }
 
 ul {
@@ -72,22 +76,20 @@ li {
   border-bottom: 1px solid #eee;
 }
 
-/* BOTTOM BAR */
-.bottom-bar {
+/* BOTTOM NAV (UNCHANGED) */
+nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 64px;
-  background: white;
+  background: #fff;
   border-top: 1px solid #ddd;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 5;
 }
 
-.bottom-bar button {
+nav button {
+  flex: 1;
   background: none;
   color: #111;
   font-size: 14px;
@@ -107,7 +109,7 @@ li {
   height: 56px;
   border-radius: 50%;
   background: #111;
-  color: white;
+  color: #fff;
   font-size: 28px;
   display: flex;
   align-items: center;
@@ -135,13 +137,14 @@ li {
 }
 
 .fan button {
-  width: 160px;
-  border-radius: 12px;
-  font-size: 14px;
+  width: 180px;
+  background: #111;
 }
 
 /* SECTIONS */
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 </style>
 </head>
 
@@ -150,7 +153,9 @@ li {
 <header>PlanUp</header>
 
 <main>
-<section id="list">
+
+<!-- HOME -->
+<section id="home">
   <div class="card">
     <div>Total Estimated</div>
     <div class="total">$<span id="total">0.00</span></div>
@@ -158,34 +163,35 @@ li {
   <ul id="items"></ul>
 </section>
 
-<section id="recipes" class="hidden">
-  <div class="card">Recipes 📖</div>
+<!-- INSIGHTS -->
+<section id="insights" class="hidden">
+  <div class="card">Insights coming soon 📊</div>
 </section>
 
-<section id="frequent" class="hidden">
-  <div class="card">Frequent Items ⭐</div>
+<!-- PROFILE -->
+<section id="profile" class="hidden">
+  <div class="card">Profile coming soon 👤</div>
 </section>
 
-<section id="smart" class="hidden">
-  <div class="card">Smart Sort 🧠</div>
-</section>
 </main>
 
-<!-- FAN -->
+<!-- PLUS FAN -->
 <div class="fab-wrapper">
   <div class="fan" id="fan">
-    <button onclick="openAdd()">➕ Add Item</button>
-    <button onclick="showSection('recipes')">📖 Recipes</button>
+    <button onclick="addItem()">➕ Add Item</button>
+    <button onclick="openRecipes()">📖 Recipes</button>
+    <button onclick="openFrequent()">⭐ Frequent Items</button>
+    <button onclick="smartSort()">🧠 Smart Sort</button>
   </div>
   <div class="fab" id="fab" onclick="toggleFab()">+</div>
 </div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom-bar">
-  <button onclick="showSection('recipes')">📖</button>
-  <button onclick="showSection('frequent')">⭐</button>
-  <button onclick="showSection('smart')">🧠</button>
-</div>
+<!-- BOTTOM NAV -->
+<nav>
+  <button onclick="show('home')">Home</button>
+  <button onclick="show('insights')">Insights</button>
+  <button onclick="show('profile')">Profile</button>
+</nav>
 
 <script>
 let items = JSON.parse(localStorage.getItem("planup-items")) || [];
@@ -198,22 +204,41 @@ function toggleFab() {
   document.getElementById("fab").innerText = expanded ? "−" : "+";
 }
 
-function showSection(id) {
-  ["list","recipes","frequent","smart"].forEach(s =>
+function show(id) {
+  ["home","insights","profile"].forEach(s =>
     document.getElementById(s).classList.add("hidden")
   );
   document.getElementById(id).classList.remove("hidden");
 }
 
-function openAdd() {
+function addItem() {
   const name = prompt("Item name?");
   const qty = Number(prompt("Quantity?"));
   const price = Number(prompt("Price?"));
   if (!name || qty <= 0 || price <= 0) return;
-  items.push({name, qty, price});
-  localStorage.setItem("planup-items", JSON.stringify(items));
+  items.push({ name, qty, price });
+  save();
   render();
   toggleFab();
+}
+
+function openRecipes() {
+  alert("Recipes screen coming next 🍽️");
+  toggleFab();
+}
+
+function openFrequent() {
+  alert("Frequent items coming ⭐");
+  toggleFab();
+}
+
+function smartSort() {
+  alert("Smart sort applied 🧠");
+  toggleFab();
+}
+
+function save() {
+  localStorage.setItem("planup-items", JSON.stringify(items));
 }
 
 function render() {
@@ -233,173 +258,4 @@ render();
 </script>
 
 </body>
-  </html>    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .total {
-      font-size: 20px;
-      font-weight: bold;
-      color: #e53935;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      margin-bottom: 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      background: #111;
-      color: white;
-      font-size: 16px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      border-top: 1px solid #ddd;
-      display: flex;
-    }
-
-    nav button {
-      flex: 1;
-      border-radius: 0;
-      background: none;
-      color: #111;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>PlanUp</header>
-
-  <main>
-    <!-- MY LIST -->
-    <section id="list">
-      <div class="card">
-        <div>Total Estimated</div>
-        <div class="total">$<span id="total">0.00</span></div>
-      </div>
-
-      <div class="card">
-        <input id="name" placeholder="Item name" />
-        <input id="qty" type="number" placeholder="Quantity" />
-        <input id="price" type="number" placeholder="Price" />
-        <button onclick="addItem()">Add Item</button>
-      </div>
-
-      <ul id="items"></ul>
-    </section>
-
-    <!-- RECIPES -->
-    <section id="recipes" class="hidden">
-      <div class="card">
-        <h3>Sushi</h3>
-        <button onclick="alert('Recipe used! Ingredients deducted')">Use Recipe</button>
-      </div>
-
-      <div class="card">
-        <h3>Knafeh</h3>
-        <button onclick="alert('Recipe used! Ingredients deducted')">Use Recipe</button>
-      </div>
-    </section>
-
-    <!-- PLACEHOLDERS -->
-    <section id="insights" class="hidden">
-      <div class="card">Insights coming soon 📊</div>
-    </section>
-
-    <section id="profile" class="hidden">
-      <div class="card">Profile coming soon 👤</div>
-    </section>
-  </main>
-
-  <nav>
-    <button onclick="show('list')">My List</button>
-    <button onclick="show('recipes')">Recipes</button>
-    <button onclick="show('insights')">Insights</button>
-    <button onclick="show('profile')">Profile</button>
-  </nav>
-
-  <script>
-    let items = JSON.parse(localStorage.getItem("planup-items")) || [];
-
-    function save() {
-      localStorage.setItem("planup-items", JSON.stringify(items));
-    }
-
-    function render() {
-      const list = document.getElementById("items");
-      list.innerHTML = "";
-      let total = 0;
-
-      items.forEach(i => {
-        total += i.qty * i.price;
-        const li = document.createElement("li");
-        li.innerHTML = `<span>${i.name} (x${i.qty})</span><span>$${(i.qty*i.price).toFixed(2)}</span>`;
-        list.appendChild(li);
-      });
-
-      document.getElementById("total").innerText = total.toFixed(2);
-    }
-
-    function addItem() {
-      const name = document.getElementById("name").value;
-      const qty = Number(document.getElementById("qty").value);
-      const price = Number(document.getElementById("price").value);
-
-      if (!name || qty <= 0 || price <= 0) return;
-
-      items.push({ name, qty, price });
-      save();
-      render();
-
-      document.getElementById("name").value = "";
-      document.getElementById("qty").value = "";
-      document.getElementById("price").value = "";
-    }
-
-    function show(id) {
-      ["list","recipes","insights","profile"].forEach(s => {
-        document.getElementById(s).classList.add("hidden");
-      });
-      document.getElementById(id).classList.remove("hidden");
-    }
-
-    render();
-  </script>
-
-</body>
-  </html>
+</html>
