@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlanUp</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
-
-<!-- Google Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
 <style>
@@ -20,17 +18,38 @@
 body {
   margin: 0;
   background: #f6f6f6;
-  padding-bottom: 90px;
+  padding-bottom: 100px;
 }
 
+/* HEADER TOP MENU */
 header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 16px;
-  font-size: 22px;
-  font-weight: bold;
   background: white;
   border-bottom: 1px solid #ddd;
 }
 
+header .left-icons, header .right-icons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+header .search-bar {
+  margin: 12px 16px;
+}
+
+header input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+/* MAIN CONTENT */
 main {
   padding: 16px;
 }
@@ -85,13 +104,13 @@ nav button {
   position: fixed;
   right: 16px;
   bottom: 80px;
-  z-index: 20;
+  z-index: 50;
 }
 
 /* MAIN CHEVRON */
 .fab {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: white;
   color: #111;
@@ -99,18 +118,16 @@ nav button {
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 3px 8px rgba(0,0,0,.18),
+    0 3px 12px rgba(0,0,0,.18),
     inset 0 0 0 1px #e2e2e2;
-  transition: transform .25s ease;
+  transition: transform .3s ease;
+  position: relative;
+  z-index: 60;
 }
 
 .fab span {
-  font-size: 20px;
-  transition: transform .25s ease, opacity .25s ease;
-}
-
-.fab.expanded span {
-  transform: scaleX(1.6);
+  font-size: 24px;
+  transition: transform .3s ease;
 }
 
 /* FAN STACK */
@@ -118,46 +135,40 @@ nav button {
   position: absolute;
   bottom: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  pointer-events: none;
 }
 
 .fan button {
-  position: absolute;
-  right: 3px;
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: white;
-  border: none;
-  box-shadow:
-    0 3px 8px rgba(0,0,0,.18),
-    inset 0 0 0 1px #e5e5e5;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: translateY(0) scale(.9);
-  transition:
-    transform .35s cubic-bezier(.22,1,.36,1),
-    opacity .25s ease;
+  transform: scale(0.3);
+  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .3s ease;
+  pointer-events: auto;
+  box-shadow: 0 6px 16px rgba(0,0,0,.2);
 }
 
-/* FLOW UPWARD */
-.fan.show button:nth-child(1) {
-  transform: translateY(-56px);
+/* SHOW FAN */
+.fan.show button {
   opacity: 1;
+  transform: scale(1);
 }
-.fan.show button:nth-child(2) {
-  transform: translateY(-112px);
-  opacity: 1;
-}
-.fan.show button:nth-child(3) {
-  transform: translateY(-168px);
-  opacity: 1;
-}
-.fan.show button:nth-child(4) {
-  transform: translateY(-224px);
-  opacity: 1;
-}
+
+.fan button:nth-child(1) { transition-delay: 0s; }
+.fan button:nth-child(2) { transition-delay: 0.05s; }
+.fan button:nth-child(3) { transition-delay: 0.1s; }
+.fan button:nth-child(4) { transition-delay: 0.15s; }
 
 /* SECTIONS */
 .hidden {
@@ -168,24 +179,34 @@ nav button {
 
 <body>
 
-<header>PlanUp</header>
+<header>
+  <div class="left-icons">
+    <span class="material-icons-outlined">menu</span>
+  </div>
+  <div class="right-icons">
+    <span class="material-icons-outlined">notifications</span>
+    <span class="material-icons-outlined">check_box</span>
+  </div>
+</header>
+
+<div class="search-bar">
+  <input type="text" placeholder="Search...">
+</div>
 
 <main>
-<section id="home">
   <div class="card">
     <div>Total Estimated</div>
     <div class="total">$<span id="total">0.00</span></div>
   </div>
   <ul id="items"></ul>
-</section>
 
-<section id="insights" class="hidden">
-  <div class="card">Insights coming soon</div>
-</section>
+  <section id="insights" class="hidden">
+    <div class="card">Insights coming soon</div>
+  </section>
 
-<section id="profile" class="hidden">
-  <div class="card">Profile coming soon</div>
-</section>
+  <section id="profile" class="hidden">
+    <div class="card">Profile coming soon</div>
+  </section>
 </main>
 
 <!-- FAN -->
@@ -215,15 +236,17 @@ let expanded = false;
 
 function toggleFab() {
   expanded = !expanded;
-  document.getElementById("fan").classList.toggle("show");
-  document.getElementById("fab").classList.toggle("expanded");
+  const fan = document.getElementById("fan");
+  const fab = document.getElementById("fab");
+  fan.classList.toggle("show", expanded);
+  fab.classList.toggle("expanded", expanded);
 }
 
 function show(id) {
   ["home","insights","profile"].forEach(s =>
-    document.getElementById(s).classList.add("hidden")
+    document.getElementById(s)?.classList.add("hidden")
   );
-  document.getElementById(id).classList.remove("hidden");
+  document.getElementById(id)?.classList.remove("hidden");
 }
 
 function addItem() {
