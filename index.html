@@ -1,153 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlanUp FAB</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlanUp Homepage</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    body {
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-<style>
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-body{margin:0;height:100vh;background:#f6f6f6}
+    /* Top Bar */
+    .top-bar {
+      height: 60px;
+      background-color: #673ab7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 1.2em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-/* LAYER */
-.fab-layer{
-  position:fixed;
-  right:20px;
-  bottom:90px;
-  z-index:9999;
-}
+    /* Budget Widget */
+    .budget-card {
+      margin: 20px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-/* FAB */
-.fab{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 6px 16px rgba(0,0,0,.3);
-  cursor:pointer;
-  position:relative;
-  transition:transform .45s cubic-bezier(.22,1.4,.36,1);
-}
-.fab.lowered{
-  transform:translateY(14px);
-}
+    .budget-card .amount {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #4caf50;
+    }
 
-/* CUSTOM CHEVRON */
-.chevron{
-  position:relative;
-  width:18px;
-  height:12px;
-}
-.chevron::before,
-.chevron::after{
-  content:"";
-  position:absolute;
-  top:5px;
-  width:10px;
-  height:2px;
-  background:#111;
-  transition:transform .35s cubic-bezier(.22,1,.36,1);
-}
-.chevron::before{
-  left:0;
-  transform:rotate(45deg);
-}
-.chevron::after{
-  right:0;
-  transform:rotate(-45deg);
-}
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 0 20px;
+    }
 
-/* FLATTEN TO LINE */
-.fab.flat .chevron::before{
-  transform:rotate(0deg) translateX(4px);
-}
-.fab.flat .chevron::after{
-  transform:rotate(0deg) translateX(-4px);
-}
+    /* Bottom Navigation */
+    .bottom-nav {
+      height: 60px;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      bottom: 0;
+      z-index: 100;
+    }
 
-/* FAN */
-.fan{
-  position:absolute;
-  bottom:0;
-  right:0;
-}
+    .bottom-nav button {
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #555;
+      cursor: pointer;
+    }
 
-/* BUBBLES */
-.fan button{
-  position:absolute;
-  right:0;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.6);
-  box-shadow:0 8px 20px rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    .bottom-nav button.active {
+      color: #673ab7;
+    }
 
-  opacity:0;
-  transform:translateY(0) scale(.2);
-  transition:
-    transform .6s cubic-bezier(.22,1.6,.36,1),
-    opacity .25s ease;
-}
+    /* FAB */
+    .fab-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      z-index: 200;
+    }
 
-/* FLOAT UP */
-.fan.show button:nth-child(1){
-  transform:translateY(-52px) scale(1);
-  opacity:1;
-}
-.fan.show button:nth-child(2){
-  transform:translateY(-104px) scale(1);
-  opacity:1;
-}
-.fan.show button:nth-child(3){
-  transform:translateY(-156px) scale(1);
-  opacity:1;
-}
-.fan.show button:nth-child(4){
-  transform:translateY(-208px) scale(1);
-  opacity:1;
-}
-</style>
+    .fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #673ab7;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .fab-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ff4081;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .fab-button.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
 </head>
-
 <body>
 
-<div class="fab-layer">
-
-  <div class="fan" id="fan">
-    <button><span class="material-icons-outlined">add</span></button>
-    <button><span class="material-icons-outlined">checklist</span></button>
-    <button><span class="material-icons-outlined">receipt_long</span></button>
-    <button><span class="material-icons-outlined">auto_awesome</span></button>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>PlanUp</div>
+    <div>🔔</div>
   </div>
 
-  <div class="fab" id="fab">
-    <div class="chevron"></div>
+  <!-- Budget Widget -->
+  <div class="budget-card">
+    <div>
+      <div>Budget</div>
+      <div class="amount">$2,450</div>
+    </div>
+    <div>📊</div>
   </div>
 
-</div>
+  <!-- Main Content -->
+  <div class="main-content" id="main-content">
+    <h2>Home Page</h2>
+    <p>Here goes your main content...</p>
+  </div>
 
-<script>
-let open=false;
-const fab=document.getElementById("fab");
-const fan=document.getElementById("fan");
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <button class="active" onclick="switchTab(0)">🏠<span>Home</span></button>
+    <button onclick="switchTab(1)">📈<span>Analytics</span></button>
+    <button onclick="switchTab(2)">📋<span>Transactions</span></button>
+    <button onclick="switchTab(3)">⚙️<span>Settings</span></button>
+  </div>
 
-fab.onclick=()=>{
-  open=!open;
-  fan.classList.toggle("show",open);
-  fab.classList.toggle("lowered",open);
-  fab.classList.toggle("flat",open);
-};
-</script>
+  <!-- FAB -->
+  <div class="fab-container">
+    <div class="fab-button" id="fab1">💰</div>
+    <div class="fab-button" id="fab2">📝</div>
+    <div class="fab-button" id="fab3">📷</div>
+    <div class="fab-button" id="fab4">🎯</div>
+    <div class="fab" id="fab">+</div>
+  </div>
+
+  <script>
+    const fab = document.getElementById('fab');
+    const fabButtons = [
+      document.getElementById('fab1'),
+      document.getElementById('fab2'),
+      document.getElementById('fab3'),
+      document.getElementById('fab4')
+    ];
+    let fabExpanded = false;
+
+    fab.addEventListener('click', () => {
+      fabExpanded = !fabExpanded;
+      fab.style.transform = fabExpanded ? 'rotate(45deg)' : 'rotate(0deg)';
+      fabButtons.forEach((btn, i) => {
+        if(fabExpanded) {
+          setTimeout(() => btn.classList.add('show'), i * 50);
+        } else {
+          setTimeout(() => btn.classList.remove('show'), i * 50);
+        }
+      });
+    });
+
+    function switchTab(index) {
+      const buttons = document.querySelectorAll('.bottom-nav button');
+      buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+      const mainContent = document.getElementById('main-content');
+      const pages = [
+        '<h2>Home Page</h2><p>Here goes your main content...</p>',
+        '<h2>Analytics</h2><p>Graphs and stats appear here.</p>',
+        '<h2>Transactions</h2><p>Transaction history displayed here.</p>',
+        '<h2>Settings</h2><p>Adjust your preferences here.</p>'
+      ];
+      mainContent.innerHTML = pages[index];
+    }
+  </script>
 
 </body>
-</html>
+      </html>
