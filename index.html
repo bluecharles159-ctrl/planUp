@@ -1,209 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PlanUp</title>
 
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#e8f5e9">
+<meta name="theme-color" content="#4caf50">
 
-<!-- Material Icons -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
 <style>
-/* ================== BASE ================== */
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
+body{margin:0;background:#f6f6f6;padding-bottom:110px}
 
-body {
-  margin: 0;
-  background: #f6f6f6;
-  padding-bottom: 110px;
-}
+/* TOP BAR */
+.top-bar{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#fff;border-bottom:1px solid #ddd}
+.top-bar span{font-size:24px}
+.top-bar .right{display:flex;gap:14px}
 
-/* ================== TOP BAR ================== */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background: white;
-  border-bottom: 1px solid #ddd;
-}
+/* SEARCH */
+.search-wrap{margin:14px 16px;background:#fff;border-radius:26px;display:flex;align-items:center;padding:12px 16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.search-wrap input{border:none;outline:none;flex:1;margin-left:10px;font-size:15px}
 
-.top-bar span {
-  font-size: 24px;
-}
+/* MAIN */
+main{padding:16px}
 
-.top-bar .right {
-  display: flex;
-  gap: 14px;
-}
+/* CARDS */
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.card.budget{background:#e8f5e9;border-left:6px solid #4caf50}
+.amount{font-size:26px;font-weight:bold;color:#2e7d32}
 
-/* ================== SEARCH ================== */
-.search-wrap {
-  margin: 14px 16px;
-  background: white;
-  border-radius: 26px;
-  display: flex;
-  align-items: center;
-  padding: 12px 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-}
+/* TODO */
+.todo-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eee;font-size:15px}
+.todo-item .done{text-decoration:line-through;color:#777}
 
-.search-wrap input {
-  border: none;
-  outline: none;
-  flex: 1;
-  margin-left: 10px;
-  font-size: 15px;
-}
+/* BOTTOM NAV */
+nav{position:fixed;bottom:0;left:0;right:0;height:64px;background:#fff;border-top:1px solid #ddd;display:flex}
+nav button{flex:1;background:none;border:none;font-size:14px}
 
-/* ================== CARDS ================== */
-main {
-  padding: 16px;
-}
+/* MENU DRAWER */
+.menu-drawer{position:fixed;top:0;left:-260px;width:240px;height:100%;background:#fff;box-shadow:4px 0 20px rgba(0,0,0,.2);padding:20px;transition:left .35s ease;z-index:200}
+.menu-drawer.show{left:0}
+.menu-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #eee}
 
-.card {
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 14px rgba(0,0,0,.08);
-}
-
-.card.budget {
-  background: #e8f5e9;
-  border-left: 6px solid #4caf50;
-}
-
-.amount {
-  font-size: 26px;
-  font-weight: bold;
-  color: #2e7d32;
-}
-
-/* ================== LIST ================== */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
-}
-
-/* ================== BOTTOM NAV ================== */
-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  background: white;
-  border-top: 1px solid #ddd;
-  display: flex;
-}
-
-nav button {
-  flex: 1;
-  background: none;
-  border: none;
-  font-size: 14px;
-}
-
-/* ================== FAB ================== */
-.fab-wrapper {
-  position: fixed;
-  right: 18px;
-  bottom: 90px;
-  z-index: 100;
-}
-
-.fab {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(0,0,0,.25);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.fab span {
-  font-size: 20px;
-}
-  .fab.lowered {
-  transform: translateY(14px);
-  transition: transform .35s cubic-bezier(.22,1,.36,1);
-  }
+/* FAB */
+.fab-wrapper{position:fixed;right:18px;bottom:90px;z-index:100}
+.fab{width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+.fab.lowered{transform:translateY(14px);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.fab span{font-size:20px}
 
 /* FAN */
-.fan {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
+.fan{position:absolute;bottom:0;right:0;pointer-events:none}
+.fan button{
+ position:absolute;right:-3px;width:42px;height:42px;border-radius:50%;
+ background:rgba(255,255,255,.7);backdrop-filter:blur(14px);
+ border:1px solid rgba(255,255,255,.6);
+ box-shadow:0 10px 22px rgba(0,0,0,.3);
+ display:flex;align-items:center;justify-content:center;
+ opacity:0;transform:translateY(0) scale(.15);
+ transition:transform .6s cubic-bezier(.22,1.6,.36,1),opacity .3s ease
 }
 
-.fan button {
-  position: absolute;
-  right: -3px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.7);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,.6);
-  box-shadow: 0 10px 22px rgba(0,0,0,.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0;
-  transform: translateY(0) scale(0.15);
-  transition:
-    transform .6s cubic-bezier(.22,1.6,.36,1),
-    opacity .3s ease;
-}
-
-/* SPRING WOBBLE FLOAT */
-.fan.show button:nth-child(1) {
-  transform: translateY(-72px) scale(1);
-}
-.fan.show button:nth-child(2) {
-  transform: translateY(-144px) scale(1);
-}
-.fan.show button:nth-child(3) {
-  transform: translateY(-216px) scale(1);
-}
-.fan.show button:nth-child(4) {
-  transform: translateY(-288px) scale(1);
-}
-
-/* ================== SECTIONS ================== */
-.hidden {
-  display: none;
-}
+/* BUBBLE FLOW */
+.fan.show button:nth-child(1){transform:translateY(-72px) scale(1);opacity:1}
+.fan.show button:nth-child(2){transform:translateY(-144px) scale(1);opacity:1}
+.fan.show button:nth-child(3){transform:translateY(-216px) scale(1);opacity:1}
+.fan.show button:nth-child(4){transform:translateY(-288px) scale(1);opacity:1}
 </style>
 </head>
 
 <body>
 
-<!-- TOP -->
+<!-- MENU -->
+<div class="menu-drawer" id="menu">
+  <div class="menu-item"><span class="material-icons-outlined">dashboard</span> Dashboard</div>
+  <div class="menu-item"><span class="material-icons-outlined">receipt_long</span> Budgets</div>
+  <div class="menu-item"><span class="material-icons-outlined">checklist</span> To-Do</div>
+  <div class="menu-item"><span class="material-icons-outlined">bar_chart</span> Insights</div>
+  <div class="menu-item"><span class="material-icons-outlined">settings</span> Settings</div>
+</div>
+
+<!-- TOP BAR -->
 <header class="top-bar">
-  <span class="material-icons-outlined">menu</span>
+  <span class="material-icons-outlined" onclick="toggleMenu()">menu</span>
   <div class="right">
     <span class="material-icons-outlined">notifications</span>
     <span class="material-icons-outlined">checklist</span>
@@ -218,13 +98,18 @@ nav button {
 
 <main>
   <!-- BUDGET -->
-  <div class="card budget">
+  <div class="card budget" onclick="setBudget()">
     <div>Total Budget</div>
-    <div class="amount">$0.00</div>
+    <div class="amount" id="budget">$0.00</div>
   </div>
 
-  <!-- ITEMS -->
-  <ul id="items"></ul>
+  <!-- TODO -->
+  <div class="card">
+    <div style="font-weight:600;margin-bottom:10px;">To-Do</div>
+    <div class="todo-item"><span class="material-icons-outlined">check_box_outline_blank</span>Buy groceries</div>
+    <div class="todo-item"><span class="material-icons-outlined">check_box</span><span class="done">Pay electricity bill</span></div>
+    <div class="todo-item"><span class="material-icons-outlined">check_box_outline_blank</span>Plan weekly budget</div>
+  </div>
 </main>
 
 <!-- FAB -->
@@ -236,7 +121,7 @@ nav button {
     <button><span class="material-icons-outlined">auto_awesome</span></button>
   </div>
 
-  <div class="fab" onclick="toggleFab()">
+  <div class="fab" id="fab" onclick="toggleFab()">
     <span class="material-icons-outlined">expand_less</span>
   </div>
 </div>
@@ -249,17 +134,29 @@ nav button {
 </nav>
 
 <script>
-let expanded = false;
+let expanded=false;
+let budget=Number(localStorage.getItem("budget"))||0;
 
-function toggleFab() {
-  expanded = !expanded;
+function toggleFab(){
+ expanded=!expanded;
+ document.getElementById("fan").classList.toggle("show",expanded);
+ document.getElementById("fab").classList.toggle("lowered",expanded);
+}
 
-  const fan = document.getElementById("fan");
-  const fab = document.querySelector(".fab");
+function toggleMenu(){
+ document.getElementById("menu").classList.toggle("show");
+}
 
-  fan.classList.toggle("show", expanded);
-  fab.classList.toggle("lowered", expanded);
-  }
+function setBudget(){
+ const v=Number(prompt("Set total budget"));
+ if(v>0){budget=v;localStorage.setItem("budget",v);renderBudget();}
+}
+
+function renderBudget(){
+ document.getElementById("budget").innerText="$"+budget.toFixed(2);
+}
+
+renderBudget();
 </script>
 
 </body>
