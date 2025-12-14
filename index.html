@@ -5,46 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlanUp</title>
 
+<meta name="theme-color" content="#4caf50">
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
 <style>
-/* ================= BASE ================= */
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-body{margin:0;background:#f5f6f7;padding-bottom:120px;color:#111}
+body{margin:0;background:#f5f6f7;padding-bottom:120px}
 .hidden{display:none}
 
-/* ================= TOP BAR ================= */
+/* TOP BAR */
 header{
   display:flex;justify-content:space-between;align-items:center;
   padding:16px;background:#fff;border-bottom:1px solid #ddd
 }
 header span{font-size:24px}
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 .search{
-  margin:14px 16px;
-  background:#fff;border-radius:28px;
-  display:flex;align-items:center;
-  padding:12px 16px;
+  margin:14px 16px;background:#fff;border-radius:28px;
+  display:flex;align-items:center;padding:12px 16px;
   box-shadow:0 4px 14px rgba(0,0,0,.08)
 }
-.search input{
-  border:none;outline:none;
-  flex:1;margin-left:10px;font-size:15px
-}
+.search input{border:none;outline:none;flex:1;margin-left:10px}
 
-/* ================= MAIN ================= */
+/* MAIN */
 main{padding:16px}
 
-/* ================= BUDGET ================= */
+/* BUDGET */
 .budget{
-  background:#e8f5e9;
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 6px 16px rgba(0,0,0,.1);
-  margin-bottom:18px
+  background:#e8f5e9;border-radius:18px;
+  padding:16px;margin-bottom:18px;
+  box-shadow:0 6px 16px rgba(0,0,0,.1)
 }
-.budget h3{margin:0 0 10px 0}
+.budget h3{margin:0 0 10px}
 .budget-row{
   display:flex;justify-content:space-between;
   font-size:14px;margin-bottom:6px
@@ -53,130 +47,86 @@ main{padding:16px}
   height:8px;border-radius:8px;
   background:#c8e6c9;overflow:hidden;margin-top:8px
 }
-.progress span{
-  display:block;height:100%;
-  background:#4caf50;width:0%
-}
+.progress span{display:block;height:100%;background:#4caf50}
 
-/* ================= EMPTY STATE ================= */
+/* EMPTY */
 .empty{
-  text-align:center;
-  color:#aaa;
-  margin-top:60px;
-  font-size:15px
+  text-align:center;color:#aaa;margin-top:60px;font-size:15px
 }
 
-/* ================= FILTER ================= */
+/* FILTER */
 .filter{
-  display:flex;gap:10px;
-  overflow-x:auto;margin-bottom:16px
+  display:flex;gap:10px;overflow-x:auto;margin-bottom:16px
 }
 .filter button{
-  padding:8px 14px;border:none;
-  border-radius:20px;background:#fff;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  white-space:nowrap
+  padding:8px 14px;border:none;border-radius:20px;
+  background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)
 }
 
-/* ================= CATEGORY ================= */
+/* CATEGORY */
 .category{
-  background:#fff;border-radius:18px;
-  padding:14px;margin-bottom:18px;
-  box-shadow:0 6px 16px rgba(0,0,0,.08)
+  background:#fff;border-radius:18px;padding:14px;
+  margin-bottom:18px;box-shadow:0 6px 16px rgba(0,0,0,.08)
 }
 .category h4{margin:0 0 12px}
 
-/* ================= PRODUCT ================= */
+/* PRODUCT */
 .product{
   display:flex;align-items:center;
-  background:#f9f9f9;
-  border-radius:14px;
+  background:#f9f9f9;border-radius:14px;
   padding:10px;margin-bottom:10px
 }
 .product img{
-  width:54px;height:54px;
-  border-radius:12px;
-  object-fit:cover;
-  background:#ddd;margin-right:12px;
-  cursor:pointer
+  width:54px;height:54px;border-radius:12px;
+  object-fit:cover;margin-right:12px
 }
 .product-info{flex:1}
 .product-info b{display:block}
-.product-meta{
-  font-size:13px;color:#666;margin-top:4px
-}
-.product-total{
-  font-weight:bold;font-size:14px
-}
+.product-meta{font-size:13px;color:#666}
+.product-total{font-weight:bold}
 
-/* ================= FAB ================= */
+/* FAB */
 .fab-wrap{
   position:fixed;right:20px;bottom:90px;z-index:1000
 }
 .fab{
   width:42px;height:42px;border-radius:50%;
-  background:#fff;
-  display:flex;align-items:center;justify-content:center;
+  background:#fff;display:flex;align-items:center;justify-content:center;
   box-shadow:0 6px 18px rgba(0,0,0,.3);
-  cursor:pointer;
-  transition:transform .45s cubic-bezier(.22,1.4,.36,1)
+  cursor:pointer;transition:transform .4s cubic-bezier(.22,1.4,.36,1)
 }
 .fab.lower{transform:translateY(14px)}
 
-.fan{position:absolute;bottom:0;right:0}
+.fan{
+  position:absolute;bottom:0;right:0;
+  display:flex;flex-direction:column;align-items:center
+}
 .fan button{
-  position:absolute;
   width:36px;height:36px;border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,.75);
+  border:none;background:rgba(255,255,255,.75);
   backdrop-filter:blur(12px);
   box-shadow:0 8px 20px rgba(0,0,0,.35);
-  opacity:0;transform:scale(.2);
-  transition:all .6s cubic-bezier(.22,1.6,.36,1)
-}
-.fan.show button:nth-child(1){transform:translateY(-52px) scale(1);opacity:1}
-.fan.show button:nth-child(2){transform:translateY(-104px) scale(1);opacity:1}
-
-/* ================= ADD FORM ================= */
-.form{
-  padding:16px
-}
-.form input, .form select{
-  width:100%;padding:12px;
   margin-bottom:12px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  font-size:15px
+  opacity:0;transform:scale(.2);
+  transition:.5s cubic-bezier(.22,1.6,.36,1)
 }
-.form button{
-  width:100%;padding:14px;
-  border:none;border-radius:14px;
-  background:#4caf50;color:#fff;
-  font-size:16px
-}
+.fan.show button{opacity:1;transform:scale(1)}
 
-/* ================= MODAL ================= */
-.modal{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.4);
-  display:flex;align-items:center;justify-content:center
+/* FORM / PROFILE */
+.page{padding:16px}
+.page input,.page button{
+  width:100%;padding:12px;margin-bottom:12px;
+  border-radius:12px;border:1px solid #ccc
 }
-.modal-box{
-  background:#fff;padding:16px;
-  border-radius:16px;width:80%
-}
-.modal-box button{
-  width:100%;padding:12px;margin-top:8px;
-  border:none;border-radius:12px
-}
+.page button{background:#4caf50;color:#fff;border:none}
 </style>
 </head>
 
 <body>
 
 <header>
-  <span class="material-icons-outlined">menu</span>
-  <span class="material-icons-outlined">notifications</span>
+  <span class="material-icons-outlined" onclick="goHome()">menu</span>
+  <span class="material-icons-outlined" onclick="goProfile()">person</span>
 </header>
 
 <div class="search">
@@ -186,30 +136,25 @@ main{padding:16px}
 
 <main id="home"></main>
 
-<div class="form hidden" id="addPage">
-  <input id="pName" placeholder="Product name">
-  <input id="pQty" type="number" placeholder="Quantity">
-  <input id="pPrice" type="number" placeholder="Price">
-  <select id="pCat">
-    <option value="">Select category</option>
-    <option>Produce</option>
-    <option>Dairy</option>
-    <option>Meat</option>
-    <option>Grains</option>
-    <option>Beverages</option>
-    <option>Snacks</option>
-  </select>
-  <button onclick="saveItem()">Add Item</button>
+<div id="addPage" class="page hidden">
+  <input id="name" placeholder="Product name">
+  <input id="qty" type="number" placeholder="Quantity">
+  <input id="price" type="number" placeholder="Price">
+  <input id="cat" placeholder="Category">
+  <button onclick="addItem()">Add Item</button>
+</div>
+
+<div id="profile" class="page hidden">
+  <h3>Profile</h3>
+  <button>Create Account</button>
+  <button>Theme Settings</button>
+  <button onclick="setBudget()">Set Budget</button>
 </div>
 
 <div class="fab-wrap">
   <div class="fan" id="fan">
-    <button onclick="openAdd()">
-      <span class="material-icons-outlined">add</span>
-    </button>
-    <button>
-      <span class="material-icons-outlined">checklist</span>
-    </button>
+    <button onclick="openAdd()"><span class="material-icons-outlined">add</span></button>
+    <button><span class="material-icons-outlined">checklist</span></button>
   </div>
   <div class="fab" id="fab" onclick="toggleFab()">
     <span class="material-icons-outlined">expand_less</span>
@@ -218,7 +163,10 @@ main{padding:16px}
 
 <script>
 let items=JSON.parse(localStorage.getItem("items")||"[]");
+let budget=+localStorage.getItem("budget")||500;
 let open=false;
+
+const coffeeImg="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=200&q=60";
 
 function toggleFab(){
   open=!open;
@@ -229,46 +177,69 @@ function toggleFab(){
 function openAdd(){
   home.classList.add("hidden");
   addPage.classList.remove("hidden");
+  profile.classList.add("hidden");
   toggleFab();
 }
 
-function saveItem(){
-  const item={
-    name:pName.value,
-    qty:+pQty.value,
-    price:+pPrice.value,
-    cat:pCat.value,
-    img:null
-  };
-  if(!item.name||!item.cat)return;
-  items.push(item);
+function goHome(){
+  home.classList.remove("hidden");
+  addPage.classList.add("hidden");
+  profile.classList.add("hidden");
+}
+
+function goProfile(){
+  home.classList.add("hidden");
+  addPage.classList.add("hidden");
+  profile.classList.remove("hidden");
+}
+
+function setBudget(){
+  const b=prompt("Set total budget",budget);
+  if(b){budget=+b;localStorage.setItem("budget",budget);render();}
+}
+
+function addItem(){
+  if(!name.value||!cat.value)return;
+  items.push({
+    name:name.value,
+    qty:+qty.value,
+    price:+price.value,
+    cat:cat.value,
+    img:coffeeImg
+  });
   localStorage.setItem("items",JSON.stringify(items));
   location.reload();
 }
 
 function render(){
+  home.innerHTML="";
   if(items.length===0){
     home.innerHTML=`
       <div class="budget">
         <h3>Budget Overview</h3>
-        <div class="budget-row"><span>Total</span><span>$0</span></div>
-        <div class="budget-row"><span>Remaining</span><span>$0</span></div>
-        <div class="progress"><span></span></div>
+        <div class="budget-row"><span>Total</span><span>$${budget}</span></div>
+        <div class="budget-row"><span>Spent</span><span>$0</span></div>
+        <div class="budget-row"><span>Remaining</span><span>$${budget}</span></div>
+        <div class="progress"><span style="width:0%"></span></div>
       </div>
       <div class="empty">
         Nothing here yet.<br>
-        Tap the arrow and hit <b>+</b> to start adding items.
+        Tap the arrow and hit <b>+</b> to add your first item.
       </div>`;
     return;
   }
 
-  let total=items.reduce((s,i)=>s+i.qty*i.price,0);
+  const total=items.reduce((s,i)=>s+i.qty*i.price,0);
+  const rate=Math.min(total/budget*100,100);
+
   home.innerHTML=`
     <div class="budget">
       <h3>Budget Overview</h3>
-      <div class="budget-row"><span>Used</span><span>$${total.toFixed(2)}</span></div>
-      <div class="budget-row"><span>Remaining</span><span>$${(500-total).toFixed(2)}</span></div>
-      <div class="progress"><span style="width:${Math.min(total/500*100,100)}%"></span></div>
+      <div class="budget-row"><span>Budget</span><span>$${budget}</span></div>
+      <div class="budget-row"><span>Spent</span><span>$${total.toFixed(2)}</span></div>
+      <div class="budget-row"><span>Remaining</span><span>$${(budget-total).toFixed(2)}</span></div>
+      <div class="budget-row"><span>Rate</span><span>${rate.toFixed(1)}%</span></div>
+      <div class="progress"><span style="width:${rate}%"></span></div>
     </div>
   `;
 
@@ -280,7 +251,7 @@ function render(){
     items.filter(i=>i.cat===c).forEach(p=>{
       box.innerHTML+=`
         <div class="product">
-          <img src="${p.img||'https://i.imgur.com/7QFZ4.png'}">
+          <img src="${p.img}">
           <div class="product-info">
             <b>${p.name}</b>
             <div class="product-meta">Qty: ${p.qty}</div>
@@ -296,4 +267,4 @@ render();
 </script>
 
 </body>
-  </html>
+    </html>
