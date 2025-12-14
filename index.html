@@ -3,113 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlanUp</title>
+<title>FAB Test</title>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-body{margin:0;background:#f6f6f6;padding-bottom:110px}
-
-/* TOP BAR */
-.top-bar{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#fff;border-bottom:1px solid #ddd}
-.top-bar span{font-size:24px}
-.top-bar .right{display:flex;gap:14px}
-
-/* SEARCH */
-.search-wrap{margin:14px 16px;background:#fff;border-radius:26px;display:flex;align-items:center;padding:12px 16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.search-wrap input{border:none;outline:none;flex:1;margin-left:10px}
-
-/* MAIN */
-main{padding:16px}
-.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 6px 14px rgba(0,0,0,.08)}
-.card.budget{background:#e8f5e9;border-left:6px solid #4caf50}
-.amount{font-size:26px;font-weight:bold;color:#2e7d32}
-
-/* TODO */
-.todo-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eee}
-.todo-item .done{text-decoration:line-through;color:#777}
-
-/* NAV */
-nav{position:fixed;bottom:0;left:0;right:0;height:64px;background:#fff;border-top:1px solid #ddd;display:flex}
-nav button{flex:1;border:none;background:none}
-
-/* FAB */
-.fab-wrapper{position:fixed;right:18px;bottom:90px;z-index:100}
-.fab{
-  width:42px;height:42px;border-radius:50%;background:#fff;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 14px rgba(0,0,0,.25);
-  cursor:pointer;z-index:3;
+body{
+  margin:0;
+  height:100vh;
+  background:#f6f6f6;
 }
-.fab.lowered{transform:translateY(14px)}
-.fab span{font-size:20px}
+
+/* FORCE STACK CONTEXT */
+.fab-layer{
+  position:fixed;
+  right:20px;
+  bottom:90px;
+  z-index:9999;
+}
+
+/* CHEVRON */
+.fab{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.3);
+  cursor:pointer;
+  position:relative;
+  z-index:10;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.fab.lowered{
+  transform:translateY(14px);
+}
 
 /* FAN */
 .fan{
   position:absolute;
-  bottom:0;right:0;
-  z-index:2;
+  bottom:0;
+  right:0;
+  z-index:20;
 }
 
-/* BUBBLE BUTTONS */
+/* BUBBLES */
 .fan button{
   position:absolute;
-  right:-3px;
-  width:42px;height:42px;
+  right:0;
+  width:44px;
+  height:44px;
   border-radius:50%;
-  background:rgba(255,255,255,.7);
-  backdrop-filter:blur(14px);
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(12px);
   border:1px solid rgba(255,255,255,.6);
-  box-shadow:0 10px 22px rgba(0,0,0,.3);
-  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   opacity:0;
-  transform:translateY(0) scale(.15);
+  transform:translateY(0) scale(.2);
   transition:
     transform .6s cubic-bezier(.22,1.6,.36,1),
-    opacity .3s ease;
+    opacity .25s ease;
 }
 
-/* FLOAT UP (RESTORED) */
-.fan.show button:nth-child(1){transform:translateY(-72px) scale(1);opacity:1}
-.fan.show button:nth-child(2){transform:translateY(-144px) scale(1);opacity:1}
-.fan.show button:nth-child(3){transform:translateY(-216px) scale(1);opacity:1}
-.fan.show button:nth-child(4){transform:translateY(-288px) scale(1);opacity:1}
+/* FLOAT UP */
+.fan.show button:nth-child(1){
+  transform:translateY(-70px) scale(1);
+  opacity:1;
+}
+.fan.show button:nth-child(2){
+  transform:translateY(-140px) scale(1);
+  opacity:1;
+}
+.fan.show button:nth-child(3){
+  transform:translateY(-210px) scale(1);
+  opacity:1;
+}
+.fan.show button:nth-child(4){
+  transform:translateY(-280px) scale(1);
+  opacity:1;
+}
 </style>
 </head>
 
 <body>
 
-<header class="top-bar">
-  <span class="material-icons-outlined">menu</span>
-  <div class="right">
-    <span class="material-icons-outlined">notifications</span>
-    <span class="material-icons-outlined">checklist</span>
-  </div>
-</header>
-
-<div class="search-wrap">
-  <span class="material-icons-outlined">search</span>
-  <input placeholder="Search plans…">
-</div>
-
-<main>
-  <div class="card budget">
-    <div>Total Budget</div>
-    <div class="amount">$0.00</div>
-  </div>
-
-  <div class="card">
-    <div style="font-weight:600;margin-bottom:10px;">To-Do</div>
-    <div class="todo-item"><span class="material-icons-outlined">check_box_outline_blank</span>Buy groceries</div>
-    <div class="todo-item"><span class="material-icons-outlined">check_box</span><span class="done">Pay electricity bill</span></div>
-    <div class="todo-item"><span class="material-icons-outlined">check_box_outline_blank</span>Plan weekly budget</div>
-  </div>
-</main>
-
-<!-- FAB -->
-<div class="fab-wrapper">
+<div class="fab-layer">
   <div class="fan" id="fan">
     <button><span class="material-icons-outlined">add</span></button>
     <button><span class="material-icons-outlined">checklist</span></button>
@@ -117,25 +101,20 @@ nav button{flex:1;border:none;background:none}
     <button><span class="material-icons-outlined">auto_awesome</span></button>
   </div>
 
-  <div class="fab" id="fab" onclick="toggleFab()">
+  <div class="fab" id="fab">
     <span class="material-icons-outlined">expand_less</span>
   </div>
 </div>
 
-<nav>
-  <button>Home</button>
-  <button>Insights</button>
-  <button>Profile</button>
-</nav>
-
 <script>
-let expanded=false;
-function toggleFab(){
-  expanded=!expanded;
-  document.getElementById("fan").classList.toggle("show",expanded);
-  document.getElementById("fab").classList.toggle("lowered",expanded);
-}
+let open=false;
+
+document.getElementById("fab").onclick=()=>{
+  open=!open;
+  document.getElementById("fan").classList.toggle("show",open);
+  document.getElementById("fab").classList.toggle("lowered",open);
+};
 </script>
 
 </body>
-             </html>
+</html>
