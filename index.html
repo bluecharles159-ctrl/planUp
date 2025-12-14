@@ -253,8 +253,13 @@ let expanded = false;
 
 function toggleFab() {
   expanded = !expanded;
-  document.getElementById("fan").classList.toggle("show", expanded);
-}
+
+  const fan = document.getElementById("fan");
+  const fab = document.querySelector(".fab");
+
+  fan.classList.toggle("show", expanded);
+  fab.classList.toggle("lowered", expanded);
+  }
 </script>
 
 </body>
