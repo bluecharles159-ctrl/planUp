@@ -335,7 +335,12 @@ function render(){
   }
   }
   
-  renderBudget();
+  items.push(
+  {name:"Rice", price:20, qty:2, category:"Food"},
+  {name:"Coffee", price:8, qty:1, category:"Drinks"}
+);
+
+renderBudget();
 renderItems();
 updateEmptyState();
 </script>
