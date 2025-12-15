@@ -129,6 +129,33 @@ main{padding:16px}
   box-shadow:0 6px 18px rgba(0,0,0,.3);
   cursor:pointer
 }
+
+  /* ===== FILTER BAR ===== */
+.filter-bar{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:4px 2px 14px;
+  margin-bottom:10px;
+}
+
+.filter-btn{
+  padding:8px 16px;
+  border-radius:18px;
+  font-size:13px;
+  white-space:nowrap;
+  background:#eaeaea;
+  color:#555;
+  cursor:pointer;
+  transition:.25s ease;
+  border:none;
+}
+
+.filter-btn.active{
+  background:#2fb67c;
+  color:#fff;
+  box-shadow:0 4px 12px rgba(47,182,124,.35);
+}
   
   /* ===== CATEGORY CARD ===== */
 .category-card{
