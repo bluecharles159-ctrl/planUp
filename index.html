@@ -188,20 +188,26 @@ nav button{
 </div>
 
 <main id="home">
-  <div class="budget">
-    <div class="budget-top">
-      <strong>Budget</strong>
-      <span>Avg / day</span>
+  <div id="budgetCard" class="budget-card normal">
+  <div class="budget-row-top">
+    <div class="budget-left">
+      <span class="material-icons-outlined trend">trending_down</span>
+      <div>
+        <div class="label">Total Estimated</div>
+        <div class="amount" id="totalSpent">$0.00</div>
+      </div>
     </div>
-    <div class="budget-grid">
-      <span>Spent: $0</span>
-      <span>Remaining: $500</span>
-    </div>
-    <div class="progress">
-      <span style="width:0%"></span>
+
+    <div class="budget-right">
+      <div class="label" id="rightLabel">Remaining</div>
+      <div class="amount" id="rightAmount">$0.00</div>
     </div>
   </div>
 
+  <div class="budget-bar">
+    <div class="budget-fill" id="budgetFill"></div>
+  </div>
+  </div>
   <div class="empty">
     Nothing added yet.<br>
     Tap the arrow and hit <b>+</b> to begin.
