@@ -76,6 +76,85 @@ main{padding:16px}
   height:100%;
   background:#4caf50
 }
+  /* ===== BUDGET WIDGET ===== */
+.budget-card{
+  border-radius:22px;
+  padding:16px;
+  margin-bottom:18px;
+  transition:.3s ease;
+}
+
+.budget-card.normal{
+  background:#eaf7f1;
+}
+
+.budget-card.over{
+  background:#fdeaea;
+}
+
+.budget-row-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.budget-left{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.budget-left .trend{
+  font-size:22px;
+}
+
+.budget-card.normal .trend{
+  color:#2fb67c;
+}
+
+.budget-card.over .trend{
+  color:#e53935;
+}
+
+.label{
+  font-size:13px;
+  color:#666;
+}
+
+.amount{
+  font-size:22px;
+  font-weight:700;
+}
+
+.budget-card.normal .amount{
+  color:#2fb67c;
+}
+
+.budget-card.over .amount{
+  color:#e53935;
+}
+
+.budget-bar{
+  height:8px;
+  border-radius:8px;
+  background:rgba(0,0,0,.08);
+  margin-top:14px;
+  overflow:hidden;
+}
+
+.budget-fill{
+  height:100%;
+  width:0%;
+  transition:.4s ease;
+}
+
+.budget-card.normal .budget-fill{
+  background:#2fb67c;
+}
+
+.budget-card.over .budget-fill{
+  background:#e53935;
+  }
 
 /* EMPTY */
 .empty{
