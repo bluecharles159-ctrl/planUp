@@ -269,7 +269,10 @@ nav button{
 </nav>
 
 <script>
-let items=[]
+let items = [
+  // example structure
+  // { name:"Rice", price:20, qty:2, category:"Food" }
+];
 let budget=200
 
 function render(){
@@ -280,7 +283,61 @@ function render(){
   rightAmount.textContent="$200.00"
   budgetFill.style.width="0%"
 }
-render()
+  function renderItems(){
+  itemList.innerHTML = "";
+
+  if(items.length === 0){
+    emptyState.style.display = "block";
+    return;
+  }
+
+  emptyState.style.display = "none";
+
+  const grouped = {};
+
+  items.forEach(item=>{
+    if(!grouped[item.category]){
+      grouped[item.category] = [];
+    }
+    grouped[item.category].push(item);
+  });
+
+  for(const category in grouped){
+    const cat = document.createElement("div");
+    cat.className = "category-card";
+
+    cat.innerHTML = `<div class="category-title">${category}</div>`;
+
+    grouped[category].forEach(item=>{
+      const total = item.price * item.qty;
+
+      cat.innerHTML += `
+        <div class="item-card">
+          <div class="item-image">
+            <span class="material-icons-outlined">local_cafe</span>
+          </div>
+
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-meta">
+              Qty: ${item.qty} • $${item.price}
+            </div>
+          </div>
+
+          <div class="item-total">
+            $${total.toFixed(2)}
+          </div>
+        </div>
+      `;
+    });
+
+    itemList.appendChild(cat);
+  }
+  }
+  
+  renderBudget();
+renderItems();
+updateEmptyState();
 </script>
 
 </body>
