@@ -238,22 +238,21 @@ nav button{
         <div class="amount" id="rightAmount">$0.00</div>
       </div>
     </div>
-
-    <div class="budget-bar">
-      <div class="budget-fill" id="budgetFill"></div>
-    </div>
-
+    
     <div class="budget-grid">
-      <div>
-        <div class="label">Avg / item</div>
-        <div class="amount small" id="avgItem">$0.00</div>
-      </div>
-      <div>
-        <div class="label">Items</div>
-        <div class="amount small" id="itemCount">0</div>
-      </div>
-    </div>
+  <div>
+    <div class="label">Avg / item</div>
+    <div class="amount small" id="avgItem">$0.00</div>
   </div>
+  <div>
+    <div class="label">Items</div>
+    <div class="amount small" id="itemCount">0</div>
+  </div>
+</div>
+
+<div class="budget-bar">
+  <div class="budget-fill" id="budgetFill"></div>
+</div>
 
   <div class="empty">
     Nothing added yet.<br>
@@ -325,7 +324,7 @@ renderBudget();
 
 function openBudgetSettings(){
   budgetModal.classList.remove("hidden");
-}
+  }
 function saveBudget(){
   const v=Number(budgetInput.value);
   if(v>0){budget=v;renderBudget()}
