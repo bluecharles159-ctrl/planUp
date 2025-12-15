@@ -218,9 +218,6 @@ nav button{
   <div class="budget-card">
     <div class="budget-top">
 
-      <!-- ITEM LIST -->
-<div id="itemList"></div>
-
       <!-- LEFT -->
       <div class="budget-left">
         <span class="material-icons-outlined trend">trending_down</span>
@@ -246,6 +243,9 @@ nav button{
       <div class="budget-fill" id="budgetFill"></div>
     </div>
   </div>
+
+  <!-- ITEM LIST -->
+<div id="itemList"></div>
 
   <!-- EMPTY LIST STATE -->
   <div class="empty" id="emptyState">
@@ -273,16 +273,23 @@ let items = [
   // example structure
   // { name:"Rice", price:20, qty:2, category:"Food" }
 ];
-let budget=200
+let budget=20
 
-function render(){
-  const total=0
-  totalSpent.textContent="$0.00"
-  avgItem.textContent="$0.00"
-  itemCount.textContent="0"
-  rightAmount.textContent="$200.00"
-  budgetFill.style.width="0%"
-}
+  function updateEmptyState(){
+  emptyState.style.display = items.length ? "none" : "block";
+  }
+function renderBudget(){
+  const total = items.reduce((s,i)=>s + i.price * i.qty, 0);
+  const remaining = budget - total;
+  const avg = items.length ? total / items.length : 0;
+  const percent = Math.min((total / budget) * 100, 100);
+
+  totalSpent.textContent = `$${total.toFixed(2)}`;
+  avgItem.textContent = `$${avg.toFixed(2)}`;
+  itemCount.textContent = items.length;
+  rightAmount.textContent = `$${remaining.toFixed(2)}`;
+  budgetFill.style.width = percent + "%";
+  }
   function renderItems(){
   itemList.innerHTML = "";
 
