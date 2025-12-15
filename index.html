@@ -350,11 +350,13 @@ function renderBudget(){
   rightAmount.textContent = `$${remaining.toFixed(2)}`;
   budgetFill.style.width = percent + "%";
   }
+
   function renderItems(){
   itemList.innerHTML = "";
 
   if(items.length === 0){
     emptyState.style.display = "block";
+    filterBar.innerHTML = "";
     return;
   }
 
@@ -363,6 +365,8 @@ function renderBudget(){
   const grouped = {};
 
   items.forEach(item=>{
+    if(activeFilter !== "All" && item.category !== activeFilter) return;
+
     if(!grouped[item.category]){
       grouped[item.category] = [];
     }
@@ -391,15 +395,41 @@ function renderBudget(){
             </div>
           </div>
 
-          <div class="item-total">
-            $${total.toFixed(2)}
-          </div>
+          <div class="item-total">$${total.toFixed(2)}</div>
         </div>
       `;
     });
 
     itemList.appendChild(cat);
   }
+
+  renderFilters();
+  }
+  
+  function renderFilters(){
+  const categoriesInUse = [...new Set(items.map(i => i.category))];
+
+  filterBar.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.className = "filter-btn " + (activeFilter==="All"?"active":"");
+  allBtn.textContent = "All";
+  allBtn.onclick = () => {
+    activeFilter = "All";
+    renderItems();
+  };
+  filterBar.appendChild(allBtn);
+
+  categoriesInUse.forEach(cat=>{
+    const btn = document.createElement("button");
+    btn.className = "filter-btn " + (activeFilter===cat?"active":"");
+    btn.textContent = cat;
+    btn.onclick = () => {
+      activeFilter = cat;
+      renderItems();
+    };
+    filterBar.appendChild(btn);
+  });
   }
   
   items.push(
