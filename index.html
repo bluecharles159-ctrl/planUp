@@ -47,13 +47,21 @@ main{padding:16px}
 /* ===== BUDGET CARD ===== */
 .budget-top{
   display:flex;
-  justify-content:space-between;
-}
+  align-items:flex-start;
+  gap:16px;
+  }
 
+.budget-left{
 .budget-left{
   display:flex;
   gap:10px;
+  flex:1;
 }
+
+.right{
+  text-align:right;
+  min-width:90px;
+    }
 
 .trend{font-size:22px;color:#2fb67c}
 
@@ -68,6 +76,14 @@ main{padding:16px}
   border-radius:22px;
   padding:16px;
   margin-bottom:24px;
+
+  .budget-bar{
+  height:8px;
+  background:rgba(0,0,0,.08);
+  border-radius:8px;
+  margin-top:14px;
+  overflow:hidden;
+  }
 
   /* Floating effect (VISIBLE) */
   box-shadow:
@@ -349,7 +365,6 @@ function renderBudget(){
 
 renderBudget();
 renderItems();
-updateEmptyState();
 </script>
 
 </body>
