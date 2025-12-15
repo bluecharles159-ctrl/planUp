@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlanUp</title>
 
-<!-- Light green system bar -->
 <meta name="theme-color" content="#eaf7f1">
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
-<!-- ===================== CSS ===================== -->
 <style>
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
 body{margin:0;background:#f6f6f6;padding-bottom:90px}
-.hidden{display:none}
 
 /* HEADER */
 header{
@@ -49,65 +44,52 @@ header h2{margin:0;font-size:20px}
 /* MAIN */
 main{padding:16px}
 
-/* ===== BUDGET WIDGET ===== */
+/* ===== BUDGET CARD ===== */
 .budget-card{
+  background:#eaf7f1;
   border-radius:22px;
   padding:16px;
-  margin-bottom:18px;
-  transition:.3s ease;
-  cursor:pointer
+  margin-bottom:24px;
 }
-.budget-card.normal{background:#eaf7f1}
-.budget-card.over{background:#fdeaea}
 
-.budget-row-top{
+.budget-top{
   display:flex;
   justify-content:space-between;
-  align-items:center
 }
+
 .budget-left{
   display:flex;
   gap:10px;
-  align-items:center
 }
-.trend{font-size:22px}
-.budget-card.normal .trend{color:#2fb67c}
-.budget-card.over .trend{color:#e53935}
+
+.trend{font-size:22px;color:#2fb67c}
 
 .label{font-size:13px;color:#666}
-.amount{font-size:22px;font-weight:700}
-.amount.small{font-size:16px}
+.amount{font-size:22px;font-weight:700;color:#2fb67c}
+.amount.small{font-size:14px;margin-top:4px}
 
-.budget-card.normal .amount{color:#2fb67c}
-.budget-card.over .amount{color:#e53935}
+.right .amount{color:#2fb67c;text-align:right}
 
 .budget-bar{
   height:8px;
-  border-radius:8px;
   background:rgba(0,0,0,.08);
+  border-radius:8px;
   margin-top:14px;
   overflow:hidden
 }
 .budget-fill{
   height:100%;
   width:0%;
+  background:#2fb67c;
   transition:width .6s cubic-bezier(.22,1,.36,1)
 }
-.budget-card.normal .budget-fill{background:#2fb67c}
-.budget-card.over .budget-fill{background:#e53935}
 
-.budget-grid{
-  display:flex;
-  justify-content:space-between;
-  margin-top:12px
-}
-
-/* EMPTY STATE */
+/* ===== EMPTY STATE ===== */
 .empty{
   text-align:center;
   color:#aaa;
-  margin:80px 20px 0;
-  padding:20px;
+  margin:100px 20px 0;
+  font-size:15px
 }
 
 /* ===== FAB ===== */
@@ -126,38 +108,10 @@ main{padding:16px}
   align-items:center;
   justify-content:center;
   box-shadow:0 6px 18px rgba(0,0,0,.3);
-  cursor:pointer;
-  transition:transform .35s cubic-bezier(.22,1.4,.36,1)
-}
-.fab.lower{transform:translateY(12px)}
-
-.fan{
-  position:absolute;
-  bottom:0;
-  right:0
-}
-.fan button{
-  position:absolute;
-  right:0;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(12px);
-  border:none;
-  box-shadow:0 8px 20px rgba(0,0,0,.35);
-  opacity:0;
-  transform:scale(.2);
-  transition:.45s cubic-bezier(.22,1.4,.36,1)
-}
-.fan.show button:nth-child(1){
-  transform:translateY(-52px) scale(1);opacity:1
-}
-.fan.show button:nth-child(2){
-  transform:translateY(-104px) scale(1);opacity:1
+  cursor:pointer
 }
 
-/* ===== BOTTOM NAV ===== */
+/* ===== NAV ===== */
 nav{
   position:fixed;
   bottom:0;
@@ -174,44 +128,11 @@ nav button{
   border:none;
   font-size:14px
 }
-
-/* ===== MODAL ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center
-}
-.modal-box{
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  width:80%
-}
-.modal-box input{
-  width:100%;
-  padding:10px;
-  margin:12px 0;
-  border-radius:10px;
-  border:1px solid #ddd
-}
-.modal-box button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:#2fb67c;
-  color:#fff;
-  font-size:16px
-}
 </style>
 </head>
 
 <body>
 
-<!-- ===================== HTML ===================== -->
 <header>
   <span class="material-icons-outlined">menu</span>
   <h2>My List</h2>
@@ -224,109 +145,72 @@ nav button{
 </div>
 
 <main>
-  <div id="budgetCard" class="budget-card normal">
-    <div class="budget-row-top">
+
+  <!-- BUDGET -->
+  <div class="budget-card">
+    <div class="budget-top">
+
+      <!-- LEFT -->
       <div class="budget-left">
         <span class="material-icons-outlined trend">trending_down</span>
         <div>
           <div class="label">Total Estimated</div>
           <div class="amount" id="totalSpent">$0.00</div>
+          <div class="label">Avg / item</div>
+          <div class="amount small" id="avgItem">$0.00</div>
         </div>
       </div>
 
-      <div>
-        <div class="label" id="rightLabel">Remaining</div>
-        <div class="amount" id="rightAmount">$0.00</div>
+      <!-- RIGHT -->
+      <div class="right">
+        <div class="label">Remaining</div>
+        <div class="amount" id="rightAmount">$200.00</div>
+        <div class="label">Items</div>
+        <div class="amount small" id="itemCount">0</div>
       </div>
-    </div>
-    
-    <div class="budget-grid">
-  <div>
-    <div class="label">Avg / item</div>
-    <div class="amount small" id="avgItem">$0.00</div>
-  </div>
-  <div>
-    <div class="label">Items</div>
-    <div class="amount small" id="itemCount">0</div>
-  </div>
-</div>
 
-<div class="budget-bar">
-  <div class="budget-fill" id="budgetFill"></div>
-</div>
-    
-</main>
-  <div class="empty" id="emptyState">
-  Nothing added yet.<br>
-  Tap the arrow and hit <b>+</b>
+    </div>
+
+    <div class="budget-bar">
+      <div class="budget-fill" id="budgetFill"></div>
+    </div>
   </div>
+
+  <!-- EMPTY LIST STATE -->
+  <div class="empty" id="emptyState">
+    Nothing added yet.<br>
+    Tap the arrow and hit <b>+</b>
+  </div>
+
+</main>
 
 <!-- FAB -->
 <div class="fab-wrapper">
-  <div class="fan" id="fan">
-    <button><span class="material-icons-outlined">add</span></button>
-    <button><span class="material-icons-outlined">checklist</span></button>
-  </div>
-  <div class="fab" id="fab" onclick="toggleFab()">
+  <div class="fab">
     <span class="material-icons-outlined">expand_less</span>
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
   <button>Home</button>
   <button>Insights</button>
   <button>Profile</button>
 </nav>
 
-<!-- ===================== JAVASCRIPT ===================== -->
 <script>
-let items=[];
-let budget=200;
-let open=false;
+let items=[]
+let budget=200
 
-function toggleFab(){
-  open=!open;
-  fan.classList.toggle("show",open);
-  fab.classList.toggle("lower",open);
+function render(){
+  const total=0
+  totalSpent.textContent="$0.00"
+  avgItem.textContent="$0.00"
+  itemCount.textContent="0"
+  rightAmount.textContent="$200.00"
+  budgetFill.style.width="0%"
 }
-
-function renderBudget(){
-  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
-  const remaining=budget-total;
-  const percent=Math.min((total/budget)*100,100);
-  const avg=items.length?total/items.length:0;
-
-  totalSpent.textContent=`$${total.toFixed(2)}`;
-  rightAmount.textContent=`$${Math.abs(remaining).toFixed(2)}`;
-  avgItem.textContent=`$${avg.toFixed(2)}`;
-  itemCount.textContent=items.length;
-  budgetFill.style.width=percent+"%";
-
-  if(remaining<0){
-    budgetCard.classList.add("over");
-    rightLabel.textContent="Over Budget";
-  }else{
-    budgetCard.classList.remove("over");
-    rightLabel.textContent="Remaining";
-  }
-}
-  function updateEmptyState(){
-  emptyState.style.display = items.length ? "none" : "block";
-  }
-  
-renderBudget();
-  updateEmptyState();
-
-function openBudgetSettings(){
-  budgetModal.classList.remove("hidden");
-  }
-function saveBudget(){
-  const v=Number(budgetInput.value);
-  if(v>0){budget=v;renderBudget()}
-  budgetModal.classList.add("hidden");
-}
+render()
 </script>
 
 </body>
-          </html>
+  </html>
