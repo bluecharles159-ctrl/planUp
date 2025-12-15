@@ -45,13 +45,23 @@ header h2{margin:0;font-size:20px}
 main{padding:16px}
 
 /* ===== BUDGET CARD ===== */
+.budget-card{
+  background:#eaf7f1;
+  border-radius:22px;
+  padding:16px;
+  margin-bottom:24px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.08),
+    0 12px 32px rgba(0,0,0,.06);
+}
+
 .budget-top{
   display:flex;
+  justify-content:space-between;
   align-items:flex-start;
   gap:16px;
-  }
+}
 
-.budget-left{
 .budget-left{
   display:flex;
   gap:10px;
@@ -61,7 +71,7 @@ main{padding:16px}
 .right{
   text-align:right;
   min-width:90px;
-    }
+}
 
 .trend{font-size:22px;color:#2fb67c}
 
@@ -69,36 +79,21 @@ main{padding:16px}
 .amount{font-size:22px;font-weight:700;color:#2fb67c}
 .amount.small{font-size:14px;margin-top:4px}
 
-.right .amount{color:#2fb67c;text-align:right}
-
-.budget-card{
-  background:#eaf7f1;
-  border-radius:22px;
-  padding:16px;
-  margin-bottom:24px;
-
-  .budget-bar{
+.budget-bar{
   height:8px;
   background:rgba(0,0,0,.08);
   border-radius:8px;
   margin-top:14px;
   overflow:hidden;
-  }
-
-  /* Floating effect (VISIBLE) */
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.08),
-    0 12px 32px rgba(0,0,0,.06);
-
-  transform: translateY(0);
-  transition: box-shadow .25s ease, transform .25s ease;
 }
+
 .budget-fill{
   height:100%;
   width:0%;
   background:#2fb67c;
   transition:width .6s cubic-bezier(.22,1,.36,1)
-}
+  }
+
   body{
   background:#f4f4f4; /* slightly darker than before */
       }
