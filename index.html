@@ -117,17 +117,13 @@ main{padding:16px}
   background:#f4f4f4; /* slightly darker than before */
       }
 
-  .item-details{
-  overflow:hidden;
-  max-height:0;
-  transition:max-height .35s ease, opacity .25s ease;
-  opacity:0;
+                                    .budget-card{
+  transition: background-color .5s ease;
 }
 
-.item-card.expanded .item-details{
-  max-height:300px;   /* enough for many entries */
-  opacity:1;
-}
+.budget-card.green{ background:#eaf7f1; }
+.budget-card.yellow{ background:#fff6db; }
+.budget-card.red{ background:#fdecea; }
 
   .budget-fill.green{ background:#2fb67c; }
 .budget-fill.yellow{ background:#f1c40f; }
@@ -275,6 +271,18 @@ main{padding:16px}
   font-weight:400;        /* NOT bold */
   color:#333;
   line-height:1.3;
+}
+
+  .item-details{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease, opacity .25s ease;
+  opacity:0;
+}
+
+.item-card.expanded .item-details{
+  max-height:300px;   /* enough for many entries */
+  opacity:1;
 }
 
 /* ===== NAV ===== */
