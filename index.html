@@ -130,6 +130,23 @@ main{padding:16px}
   cursor:pointer
 }
 
+  /*===== SCAN BUTTON =====*/
+  .scan-btn{
+  position:fixed;
+  right:16px;
+  bottom:150px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  z-index:20;
+  cursor:pointer;
+  }
+
   /* ===== FILTER BAR ===== */
 .filter-bar{
   display:flex;
@@ -372,6 +389,11 @@ nav button{
     <button onclick="saveItem()">Add Item</button>
 
   </div>
+</div>
+
+  <!-- SCAN BUTTON -->
+<div class="scan-btn">
+  <span class="material-icons-outlined">photo_camera</span>
 </div>
 
 <nav>
