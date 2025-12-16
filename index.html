@@ -245,6 +245,50 @@ nav button{
   border:none;
   font-size:14px
 }
+
+  .modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+
+.modal.hidden{display:none}
+
+.modal-box{
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  width:88%;
+  max-width:360px;
+}
+
+.modal-box h3{
+  margin-top:0;
+}
+
+.modal-box input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #ddd;
+}
+
+.modal-box button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:none;
+  border-radius:14px;
+  background:#2fb67c;
+  color:#fff;
+  font-size:16px;
+  }
+  
 </style>
 </head>
 
@@ -359,6 +403,30 @@ let budget=20
 
   function updateEmptyState(){
   emptyState.style.display = items.length ? "none" : "block";
+  }
+  function openAddItem(){
+  addModal.classList.remove("hidden");
+}
+
+function saveItem(){
+  const name = itemName.value.trim();
+  const qty = Number(itemQty.value);
+  const price = Number(itemPrice.value);
+  const category = itemCategory.value.trim();
+
+  if(!name || !qty || !price || !category) return;
+
+  items.push({ name, qty, price, category });
+
+  addModal.classList.add("hidden");
+
+  itemName.value = "";
+  itemQty.value = "";
+  itemPrice.value = "";
+  itemCategory.value = "";
+
+  renderBudget();
+  renderItems();
   }
 function renderBudget(){
   const total = items.reduce((s,i)=>s + i.price * i.qty, 0);
