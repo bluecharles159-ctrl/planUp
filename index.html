@@ -351,14 +351,26 @@
 ‎  z-index:50;  
 ‎  }  
 ‎    
-‎</style>  </head>  <body>  <header>  
+‎</style>  
+  
+</head> 
+  
+  <body> 
+    
+    <header>  
 ‎  <span class="material-icons-outlined">menu</span>  
 ‎  <h2>My List</h2>  
 ‎  <span class="material-icons-outlined">notifications</span>  
-‎</header>  <div class="search">  
+‎</header> 
+    <div class="search">  
 ‎  <span class="material-icons-outlined">search</span>  
 ‎  <input placeholder="Search items...">  
-‎</div>  <main>    <!-- BUDGET -->    <div class="budget-card">  
+‎</div>  
+    
+    <main>   
+      
+      <!-- BUDGET -->    
+      <div class="budget-card">  
 ‎    <div class="budget-top">  <!-- LEFT -->  
 ‎  <div class="budget-left">  
 ‎    <span class="material-icons-outlined trend">trending_down</span>  
@@ -383,15 +395,28 @@
 ‎<div class="budget-bar">  
 ‎  <div class="budget-fill" id="budgetFill"></div>  
 ‎</div>
-‎
-‎  </div>    <!-- FILTERS -->  <div id="filterBar" class="filter-bar"></div>    <!-- ITEM LIST -->  <div id="itemList"></div>    <!-- EMPTY LIST STATE -->    <div class="empty" id="emptyState">  
+‎  </div>  
+     
+      <!-- FILTERS -->
+      <div id="filterBar" class="filter-bar"></div>  
+      
+      <!-- ITEM LIST --> 
+      <div id="itemList"></div>  
+      
+      <!-- EMPTY LIST STATE -->   
+      <div class="empty" id="emptyState">  
 ‎    Nothing added yet.<br>  
 ‎    Tap the arrow and hit <b>+</b>  
-‎  </div>  </main>  <!-- FAB -->  <div class="fab-wrapper">  
+‎  </div>  
+    </main> 
+    <!-- FAB --> 
+    <div class="fab-wrapper">  
 ‎  <div class="fab" onclick="openAddItem()">  
 ‎    <span class="material-icons-outlined">add</span>  
 ‎  </div>  
-‎  </div>    <!-- ADD ITEM MODAL -->  <div id="addModal" class="modal hidden">  
+‎  </div>  
+    <!-- ADD ITEM MODAL --> 
+    <div id="addModal" class="modal hidden">  
 ‎  <div class="modal-box">  <h3>Add Item</h3>  
 ‎
 ‎<input id="itemName" placeholder="Item name">  
@@ -402,13 +427,17 @@
 ‎<button onclick="saveItem()">Add Item</button>
 ‎
 ‎  </div>  
-‎</div>    <!-- SCAN BUTTON -->  <div class="scan-btn">  
+‎</div>  
+    <!-- SCAN BUTTON --> 
+    <div class="scan-btn">  
 ‎  <span class="material-icons-outlined">photo_camera</span>  
-‎</div>  <nav>  
+‎</div> 
+    <nav>  
 ‎  <button>Home</button>  
 ‎  <button>Insights</button>  
 ‎  <button>Profile</button>  
-‎</nav>  <script>  
+‎</nav> 
+    <script>  
 ‎let items = [  
 ‎  // example structure  
 ‎  // { name:"Rice", price:20, qty:2, category:"Food" }  
