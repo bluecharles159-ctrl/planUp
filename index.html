@@ -459,10 +459,12 @@
 ‎  itemPrice.style.borderColor = "#ddd";  
 ‎  
 ‎  // ✅ DEFINE existing (this was missing)  
-‎  const existing = items.find(  
-‎    i => i.name.toLowerCase() === name.toLowerCase() &&  
-‎         i.category.toLowerCase() === category.toLowerCase()  
-‎  );  
+‎  const existing = items.find(
+  i =>
+    i.name.toLowerCase() === name.toLowerCase() &&
+    i.category.toLowerCase() === category.toLowerCase() &&
+    Array.isArray(i.entries)
+);
 ‎  
 ‎  const entry = { qty, price };  
 ‎  
