@@ -508,20 +508,43 @@ function saveItem(){
   }
   
 function renderBudget(){
-  const total = items.reduce((sum,item)=>{
-  return sum + item.entries.reduce(
-    (s,e)=>s + e.qty * e.price, 0
-  );
-},0);
+  let total = 0;
+  let entryCount = 0;
+
+  items.forEach(item=>{
+    item.entries.forEach(e=>{
+      total += e.qty * e.price;
+      entryCount += e.qty;
+    });
+  });
+
   const remaining = budget - total;
-  const avg = items.length ? total / items.length : 0;
-  const percent = Math.min((total / budget) * 100, 100);
+  const avg = entryCount ? total / entryCount : 0;
+  const percent = (total / budget) * 100;
 
   totalSpent.textContent = `$${total.toFixed(2)}`;
   avgItem.textContent = `$${avg.toFixed(2)}`;
-  itemCount.textContent = items.length;
-  rightAmount.textContent = `$${remaining.toFixed(2)}`;
-  budgetFill.style.width = percent + "%";
+
+  itemCount.textContent = entryCount;
+
+  if(remaining >= 0){
+    rightAmount.textContent = `$${remaining.toFixed(2)}`;
+    document.querySelector(".right .label").textContent = "Remaining";
+  }else{
+    rightAmount.textContent = `$${Math.abs(remaining).toFixed(2)}`;
+    document.querySelector(".right .label").textContent = "Over budget";
+  }
+
+  budgetFill.style.width = Math.min(percent, 120) + "%";
+  budgetFill.className = "budget-fill";
+
+  if(percent < 70){
+    budgetFill.classList.add("green");
+  }else if(percent <= 100){
+    budgetFill.classList.add("yellow");
+  }else{
+    budgetFill.classList.add("red");
+  }
   }
 
   function renderItems(){
