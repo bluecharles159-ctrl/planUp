@@ -486,13 +486,23 @@ function saveItem(){
   const price = Number(itemPrice.value);
   const category = itemCategory.value.trim();
 
-  if(!name || !qty || !price || !category) return;
+  if(!name){
+  itemName.style.borderColor = "red";
+  return;
+}
 
-  // check if item already exists
-  const existing = items.find(
-    i => i.name.toLowerCase() === name.toLowerCase() &&
-         i.category.toLowerCase() === category.toLowerCase()
-  );
+itemName.style.borderColor = "#ddd";
+
+if((qty && !price) || (!qty && price)){
+  itemQty.style.borderColor = "red";
+  itemPrice.style.borderColor = "red";
+  return;
+}
+
+itemQty.style.borderColor = "#ddd";
+itemPrice.style.borderColor = "#ddd";
+
+const safeCategory = category || "Other";
 
   if(existing){
     existing.entries.push({ qty, price });
