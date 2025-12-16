@@ -569,70 +569,65 @@ function renderBudget(){
   const grouped = {};
 
   items.forEach(item=>{
-    if(activeFilter !== "All" && item.category !== activeFilter) return;
+    const cat = item.category || "Other";
+    if(activeFilter !== "All" && cat !== activeFilter) return;
 
-    if(!grouped[item.category]){
-      grouped[item.category] = [];
-    }
-    grouped[item.category].push(item);
+    if(!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(item);
   });
 
   for(const category in grouped){
-    const cat = document.createElement("div");
-    cat.className = "category-card";
-
-    cat.innerHTML = `<div class="category-title">${category}</div>`;
+    const catCard = document.createElement("div");
+    catCard.className = "category-card";
+    catCard.innerHTML = `<div class="category-title">${category}</div>`;
 
     grouped[category].forEach(item=>{
       let totalQty = 0;
-let totalPrice = 0;
+      let totalPrice = 0;
 
-let detailsHTML = "";
+      const details = document.createElement("div");
+      details.className = "item-details";
 
-item.entries.forEach(e=>{
-  totalQty += e.qty;
-  totalPrice += e.qty * e.price;
+      item.entries.forEach(e=>{
+        totalQty += e.qty;
+        totalPrice += e.qty * e.price;
 
-  detailsHTML += `
-    <div class="item-meta">
-      Qty: ${e.qty} • $${e.price}
-    </div>
-  `;
-});
+        if(e.qty && e.price){
+          const d = document.createElement("div");
+          d.className = "item-meta";
+          d.textContent = `Qty: ${e.qty} • $${e.price}`;
+          details.appendChild(d);
+        }
+      });
 
-      cat.innerHTML += `
-  <div class="item-card">
-    <div class="item-image">
-      <span class="material-icons-outlined">local_cafe</span>
-    </div>
+      const card = document.createElement("div");
+      card.className = "item-card";
 
-    <div class="item-info">
-  <div class="item-name">${item.name}</div>
+      card.innerHTML = `
+        <div class="item-image">
+          <span class="material-icons-outlined">local_cafe</span>
+        </div>
 
-  <div class="item-details">
-    ${detailsHTML}
-  </div>
-</div>
+        <div class="item-info">
+          <div class="item-name">${item.name}</div>
+        </div>
 
-card.addEventListener("click", ()=>{
-  card.classList.toggle("expanded");
-});<div class="item-info">
-  <div class="item-name">${item.name}</div>
+        <div class="item-total">
+          ${totalQty || 0} items<br>
+          $${totalPrice.toFixed(2)}
+        </div>
+      `;
 
-  <div class="item-details">
-    ${detailsHTML}
-  </div>
-</div>
+      card.querySelector(".item-info").appendChild(details);
 
-    <div class="item-total">
-      ${totalQty} items<br>
-      $${totalPrice.toFixed(2)}
-    </div>
-  </div>
-`;
+      card.addEventListener("click", ()=>{
+        card.classList.toggle("expanded");
+      });
+
+      catCard.appendChild(card);
     });
 
-    itemList.appendChild(cat);
+    itemList.appendChild(catCard);
   }
 
   renderFilters();
