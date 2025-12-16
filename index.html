@@ -438,7 +438,21 @@ function saveItem(){
 
   if(!name || !qty || !price || !category) return;
 
-  items.push({ name, qty, price, category });
+  // check if item already exists
+  const existing = items.find(
+    i => i.name.toLowerCase() === name.toLowerCase() &&
+         i.category.toLowerCase() === category.toLowerCase()
+  );
+
+  if(existing){
+    existing.entries.push({ qty, price });
+  }else{
+    items.push({
+      name,
+      category,
+      entries: [{ qty, price }]
+    });
+  }
 
   addModal.classList.add("hidden");
 
@@ -450,6 +464,7 @@ function saveItem(){
   renderBudget();
   renderItems();
   }
+  
 function renderBudget(){
   const total = items.reduce((s,i)=>s + i.price * i.qty, 0);
   const remaining = budget - total;
