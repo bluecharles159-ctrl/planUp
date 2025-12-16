@@ -524,21 +524,22 @@ item.entries.forEach(e=>{
 });
 
       cat.innerHTML += `
-        <div class="item-card">
-          <div class="item-image">
-            <span class="material-icons-outlined">local_cafe</span>
-          </div>
+  <div class="item-card">
+    <div class="item-image">
+      <span class="material-icons-outlined">local_cafe</span>
+    </div>
 
-          <div class="item-info">
-            <div class="item-name">${item.name}</div>
-            <div class="item-meta">
-              Qty: ${item.qty} • $${item.price}
-            </div>
-          </div>
+    <div class="item-info">
+      <div class="item-name">${item.name}</div>
+      ${detailsHTML}
+    </div>
 
-          <div class="item-total">$${total.toFixed(2)}</div>
-        </div>
-      `;
+    <div class="item-total">
+      ${totalQty} items<br>
+      $${totalPrice.toFixed(2)}
+    </div>
+  </div>
+`;
     });
 
     itemList.appendChild(cat);
