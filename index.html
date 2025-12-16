@@ -305,6 +305,16 @@ nav button{
   color:#fff;
   font-size:16px;
   }
+
+  .modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+  }
   
 </style>
 </head>
@@ -582,6 +592,12 @@ item.entries.forEach(e=>{
   {name:"Rice", price:20, qty:2, category:"Food"},
   {name:"Coffee", price:8, qty:1, category:"Drinks"}
 );
+  addModal.addEventListener("click", (e)=>{
+  if(e.target === addModal){
+    addModal.classList.add("hidden");
+  }
+});
+  confirmAddBtn.addEventListener("click", saveItem);
 
 renderBudget();
 renderItems();
