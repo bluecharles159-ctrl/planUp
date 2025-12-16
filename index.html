@@ -507,7 +507,21 @@ function renderBudget(){
     cat.innerHTML = `<div class="category-title">${category}</div>`;
 
     grouped[category].forEach(item=>{
-      const total = item.price * item.qty;
+      let totalQty = 0;
+let totalPrice = 0;
+
+let detailsHTML = "";
+
+item.entries.forEach(e=>{
+  totalQty += e.qty;
+  totalPrice += e.qty * e.price;
+
+  detailsHTML += `
+    <div class="item-meta">
+      Qty: ${e.qty} • $${e.price}
+    </div>
+  `;
+});
 
       cat.innerHTML += `
         <div class="item-card">
