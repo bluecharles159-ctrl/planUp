@@ -592,32 +592,6 @@ totalPrice += e.qty * e.price;
 ‎    d.classList.add("extra-entry");  
 ‎  }  
 ‎  
-‎  if(item.entries.length > 1){  
-‎  const arrow = document.createElement("span");  
-‎  arrow.className = "material-icons-outlined";  
-‎  arrow.textContent = "expand_more";  
-‎  arrow.style.cursor = "pointer";  
-‎  arrow.style.fontSize = "18px";  
-‎  arrow.style.marginLeft = "6px";  
-‎  
-‎  card.querySelector(".item-name").appendChild(arrow);  
-‎  
-‎  arrow.addEventListener("click", (e)=>{  
-‎    e.stopPropagation();  
-‎  
-‎    card.classList.toggle("expanded");  
-‎  
-‎    const extras = card.querySelectorAll(".extra-entry");  
-‎    extras.forEach(el=>{  
-‎      el.style.display = card.classList.contains("expanded") ? "block" : "none";  
-‎    });  
-‎  
-‎    arrow.textContent = card.classList.contains("expanded")  
-‎      ? "expand_less"  
-‎      : "expand_more";  
-‎  });  
-‎  }  
-‎  
 ‎  details.appendChild(d);  
 ‎});  
 ‎  
