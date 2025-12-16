@@ -466,7 +466,11 @@ function saveItem(){
   }
   
 function renderBudget(){
-  const total = items.reduce((s,i)=>s + i.price * i.qty, 0);
+  const total = items.reduce((sum,item)=>{
+  return sum + item.entries.reduce(
+    (s,e)=>s + e.qty * e.price, 0
+  );
+},0);
   const remaining = budget - total;
   const avg = items.length ? total / items.length : 0;
   const percent = Math.min((total / budget) * 100, 100);
