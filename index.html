@@ -309,8 +309,24 @@ nav button{
 
 <!-- FAB -->
 <div class="fab-wrapper">
-  <div class="fab">
-    <span class="material-icons-outlined">expand_less</span>
+  <div class="fab" onclick="openAddItem()">
+    <span class="material-icons-outlined">add</span>
+  </div>
+  </div>
+
+  <!-- ADD ITEM MODAL -->
+<div id="addModal" class="modal hidden">
+  <div class="modal-box">
+
+    <h3>Add Item</h3>
+
+    <input id="itemName" placeholder="Item name">
+    <input id="itemQty" type="number" placeholder="Quantity">
+    <input id="itemPrice" type="number" placeholder="Price">
+    <input id="itemCategory" placeholder="Category (e.g. Dairy)">
+
+    <button onclick="saveItem()">Add Item</button>
+
   </div>
 </div>
 
