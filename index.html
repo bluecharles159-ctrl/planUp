@@ -576,9 +576,22 @@ item.entries.forEach(e=>{
     </div>
 
     <div class="item-info">
-      <div class="item-name">${item.name}</div>
-      ${detailsHTML}
-    </div>
+  <div class="item-name">${item.name}</div>
+
+  <div class="item-details">
+    ${detailsHTML}
+  </div>
+</div>
+
+card.addEventListener("click", ()=>{
+  card.classList.toggle("expanded");
+});<div class="item-info">
+  <div class="item-name">${item.name}</div>
+
+  <div class="item-details">
+    ${detailsHTML}
+  </div>
+</div>
 
     <div class="item-total">
       ${totalQty} items<br>
