@@ -10,14 +10,14 @@
 
 <style>
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
-body{margin:0;background:#f6f6f6;padding-bottom:90px}
+body{margin:0;background:#f4f4f4;padding-bottom:90px}
 
 /* HEADER */
 header{
   padding:14px 16px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   background:#fff;
   border-bottom:1px solid #ddd
 }
@@ -44,109 +44,126 @@ header h2{margin:0;font-size:20px}
 /* MAIN */
 main{padding:16px}
 
-/* ===== BUDGET CARD ===== */
+/* ===== BUDGET ===== */
 .budget-card{
-  background:#eaf7f1;
   border-radius:22px;
   padding:16px;
   margin-bottom:24px;
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.08),
-    0 12px 32px rgba(0,0,0,.06);
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  transition:.4s ease;
 }
+.budget-card.green{background:#eaf7f1}
+.budget-card.yellow{background:#fff6db}
+.budget-card.red{background:#fdecea}
 
 .budget-top{
   display:flex;
-  align-items:center;      /* was flex-start */
   justify-content:space-between;
   gap:16px;
 }
 
-.budget-left{
-  display:flex;
-  gap:10px;
-  flex:1;
-}
-  .budget-left .label{
-  margin-top:6px;
-}
-
-.budget-left .amount{
-  margin-bottom:8px;
-          }
-
-.right{
-  text-align:right;
-  min-width:90px;
-}
-  .right .label{
-  margin-top:6px;
-}
-
-.right .amount{
-  margin-bottom:8px;
-}
-
-.trend{
-  font-size:28px;          /* bigger */
-  color:#2fb67c;
-  margin-top:6px;          /* pushes it down */
-  align-self:center;       /* centers within flex */
-  }
+.budget-left{display:flex;gap:10px;flex:1}
+.trend{font-size:30px;color:#2fb67c;align-self:center}
 
 .label{font-size:13px;color:#666}
 .amount{font-size:22px;font-weight:700;color:#2fb67c}
-.amount.small{font-size:14px;margin-top:4px}
+.amount.small{font-size:14px}
+
+.right{text-align:right}
 
 .budget-bar{
   height:8px;
-  background:rgba(0,0,0,.08);
+  background:rgba(0,0,0,.12);
   border-radius:8px;
-  margin-top:14px;
   overflow:hidden;
+  margin-top:14px
 }
-
 .budget-fill{
   height:100%;
   width:0%;
-  background:#2fb67c;
-  transition:width .6s cubic-bezier(.22,1,.36,1)
-  }
+  transition:.6s cubic-bezier(.22,1,.36,1)
+}
+.budget-fill.green{background:#2fb67c}
+.budget-fill.yellow{background:#f1c40f}
+.budget-fill.red{background:#e74c3c}
 
-  body{
-  background:#f4f4f4; /* slightly darker than before */
-      }
-
-                                    .budget-card{
-  transition: background-color .5s ease;
+/* FILTERS */
+.filter-bar{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  margin-bottom:14px
+}
+.filter-btn{
+  padding:8px 16px;
+  border-radius:18px;
+  font-size:13px;
+  background:#eaeaea;
+  border:none;
+  cursor:pointer
+}
+.filter-btn.active{
+  background:#111;
+  color:#fff
 }
 
-.budget-card.green{ background:#eaf7f1; }
-.budget-card.yellow{ background:#fff6db; }
-.budget-card.red{ background:#fdecea; }
+/* CATEGORY */
+.category-card{
+  background:#fff;
+  border-radius:20px;
+  padding:14px;
+  margin-bottom:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06)
+}
+.category-title{
+  font-weight:600;
+  margin-bottom:10px
+}
 
-  .budget-fill.green{ background:#2fb67c; }
-.budget-fill.yellow{ background:#f1c40f; }
-.budget-fill.red{ background:#e74c3c; }
+/* ITEM */
+.item-card{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  border-radius:14px;
+  background:#f7f7f7;
+  margin-bottom:12px
+}
+.item-image{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  background:#e0e0e0;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.item-info{flex:1}
+.item-name{font-weight:600;font-size:14px}
+.item-meta{font-size:12px;color:#777;margin-top:4px}
+.item-total{
+  margin-top:auto;
+  font-size:12px;
+  color:#333;
+  text-align:right
+}
+.item-details{display:none}
+.item-card.expanded .item-details{display:block}
 
-/* ===== EMPTY STATE ===== */
+/* EMPTY */
 .empty{
   text-align:center;
   color:#aaa;
-  margin:100px 20px 0;
-  font-size:15px
+  margin:80px 0
 }
 
-/* ===== FAB ===== */
-.fab-wrapper{
+/* FAB */
+.fab{
   position:fixed;
   right:16px;
-  bottom:80px;
-  z-index:20
-}
-.fab{
-  width:42px;
-  height:42px;
+  bottom:90px;
+  width:46px;
+  height:46px;
   border-radius:50%;
   background:#fff;
   display:flex;
@@ -156,136 +173,47 @@ main{padding:16px}
   cursor:pointer
 }
 
-  /*===== SCAN BUTTON =====*/
-  .scan-btn{
+/* MODAL */
+.modal{
   position:fixed;
-  right:16px;
-  bottom:150px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  background:#fff;
+  inset:0;
+  background:rgba(0,0,0,.35);
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
-  z-index:20;
-  cursor:pointer;
-  }
-
-  /* ===== FILTER BAR ===== */
-.filter-bar{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:4px 2px 14px;
-  margin-bottom:10px;
+  z-index:50
 }
-
-.filter-btn{
-  padding:8px 16px;
+.modal.hidden{display:none}
+.modal-box{
+  background:#fff;
   border-radius:18px;
-  font-size:13px;
-  white-space:nowrap;
-  background:#eaeaea;
-  color:#555;
-  cursor:pointer;
-  transition:.25s ease;
+  padding:20px;
+  width:90%;
+  max-width:360px
+}
+.modal-box input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
+  outline:none
+}
+.modal-box input:focus{
+  border:1px solid #2fb67c;
+  box-shadow:0 0 0 1px rgba(47,182,124,.25)
+}
+.modal-box button{
+  width:100%;
+  padding:12px;
   border:none;
-}
-
-.filter-btn.active{
-  background:#111;
-  color:#fff;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-  }
-
-  .filter-bar{
-  margin-top:4px;
-  margin-bottom:14px;
-    }
-  
-  /* ===== CATEGORY CARD ===== */
-.category-card{
-  background:#fff;
-  border-radius:20px;
-  padding:14px;
-  margin-bottom:18px;
-  box-shadow:
-    0 4px 12px rgba(0,0,0,.06),
-    0 10px 28px rgba(0,0,0,.05);
-}
-
-.category-title{
-  font-size:15px;
-  font-weight:600;
-  margin-bottom:10px;
-  color:#333;
-}
-
-/* ===== ITEM CARD ===== */
-.item-card{
-  display:flex;
-  align-items:stretch;        /* important */
-  gap:12px;
-  padding:14px 12px;
   border-radius:14px;
-  background:#f7f7f7;
-  margin-bottom:12px;
+  background:#2fb67c;
+  color:#fff;
+  font-size:16px
 }
 
-.item-image{
-  width:46px;
-  height:46px;
-  border-radius:12px;
-  background:#e0e0e0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.item-image span{
-  font-size:22px;
-  color:#999;
-}
-
-.item-info{
-  flex:1;
-}
-
-.item-name{
-  font-weight:600;
-  font-size:14px;
-}
-
-.item-meta{
-  font-size:12px;
-  color:#777;
-  margin-top:2px;
-}
-
-.item-total{
-  margin-top:auto;        /* pushes it to the bottom */
-  text-align:right;
-  font-size:12px;         /* smaller */
-  font-weight:400;        /* NOT bold */
-  color:#333;
-  line-height:1.3;
-}
-
-  .item-details{
-  overflow:hidden;
-  max-height:0;
-  transition:max-height .35s ease, opacity .25s ease;
-  opacity:0;
-}
-
-.item-card.expanded .item-details{
-  max-height:300px;   /* enough for many entries */
-  opacity:1;
-}
-
-/* ===== NAV ===== */
+/* NAV */
 nav{
   position:fixed;
   bottom:0;
@@ -296,66 +224,7 @@ nav{
   border-top:1px solid #ddd;
   display:flex
 }
-nav button{
-  flex:1;
-  background:none;
-  border:none;
-  font-size:14px
-}
-
-  .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
-}
-
-.modal.hidden{display:none}
-
-.modal-box{
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  width:88%;
-  max-width:360px;
-}
-
-.modal-box h3{
-  margin-top:0;
-}
-
-.modal-box input{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border-radius:10px;
-  border:1px solid #ddd;
-}
-
-.modal-box button{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border:none;
-  border-radius:14px;
-  background:#2fb67c;
-  color:#fff;
-  font-size:16px;
-  }
-
-  .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
-  }
-  
+nav button{flex:1;border:none;background:none}
 </style>
 </head>
 
@@ -374,76 +243,48 @@ nav button{
 
 <main>
 
-  <!-- BUDGET -->
-  <div class="budget-card">
-    <div class="budget-top">
-
-      <!-- LEFT -->
-      <div class="budget-left">
-        <span class="material-icons-outlined trend">trending_down</span>
-        <div>
-          <div class="label">Total Estimated</div>
-          <div class="amount" id="totalSpent">$0.00</div>
-          <div class="label">Avg / item</div>
-          <div class="amount small" id="avgItem">$0.00</div>
-        </div>
+<div class="budget-card green" id="budgetCard">
+  <div class="budget-top">
+    <div class="budget-left">
+      <span class="material-icons-outlined trend">trending_down</span>
+      <div>
+        <div class="label">Total Spent</div>
+        <div class="amount" id="totalSpent">$0.00</div>
+        <div class="label">Avg / item</div>
+        <div class="amount small" id="avgItem">$0.00</div>
       </div>
-
-      <!-- RIGHT -->
-      <div class="right">
-        <div class="label">Remaining</div>
-        <div class="amount" id="rightAmount">$200.00</div>
-        <div class="label">Items</div>
-        <div class="amount small" id="itemCount">0</div>
-      </div>
-
     </div>
-
-    <div class="budget-bar">
-      <div class="budget-fill" id="budgetFill"></div>
+    <div class="right">
+      <div class="label" id="remainLabel">Remaining</div>
+      <div class="amount" id="remainAmount">$20.00</div>
+      <div class="label">Items</div>
+      <div class="amount small" id="itemCount">0</div>
     </div>
   </div>
-
-  <!-- FILTERS -->
-<div id="filterBar" class="filter-bar"></div>
-
-  <!-- ITEM LIST -->
-<div id="itemList"></div>
-
-  <!-- EMPTY LIST STATE -->
-  <div class="empty" id="emptyState">
-    Nothing added yet.<br>
-    Tap the arrow and hit <b>+</b>
-  </div>
-
-</main>
-
-<!-- FAB -->
-<div class="fab-wrapper">
-  <div class="fab" onclick="openAddItem()">
-    <span class="material-icons-outlined">add</span>
-  </div>
-  </div>
-
-  <!-- ADD ITEM MODAL -->
-<div id="addModal" class="modal hidden">
-  <div class="modal-box">
-
-    <h3>Add Item</h3>
-
-    <input id="itemName" placeholder="Item name">
-    <input id="itemQty" type="number" placeholder="Quantity">
-    <input id="itemPrice" type="number" placeholder="Price">
-    <input id="itemCategory" placeholder="Category (e.g. Dairy)">
-
-    <button onclick="saveItem()">Add Item</button>
-
+  <div class="budget-bar">
+    <div class="budget-fill green" id="budgetFill"></div>
   </div>
 </div>
 
-  <!-- SCAN BUTTON -->
-<div class="scan-btn">
-  <span class="material-icons-outlined">photo_camera</span>
+<div id="filterBar" class="filter-bar"></div>
+<div id="itemList"></div>
+<div class="empty" id="emptyState">Nothing added yet</div>
+
+</main>
+
+<div class="fab" onclick="openModal()">
+  <span class="material-icons-outlined">add</span>
+</div>
+
+<div class="modal hidden" id="addModal">
+  <div class="modal-box">
+    <h3>Add Item</h3>
+    <input id="name" placeholder="Item name">
+    <input id="qty" type="number" placeholder="Qty">
+    <input id="price" type="number" placeholder="Price">
+    <input id="cat" placeholder="Category">
+    <button onclick="addItem()">Add</button>
+  </div>
 </div>
 
 <nav>
@@ -453,95 +294,98 @@ nav button{
 </nav>
 
 <script>
-let items = [
-  // example structure
-  // { name:"Rice", price:20, qty:2, category:"Food" }
-];
-  let activeFilter = "All";
+let budget = 20;
+let items = [];
+let activeFilter = "All";
 
-const FOOD_CATEGORIES = [
-  "Produce",
-  "Dairy",
-  "Meat",
-  "Seafood",
-  "Grains",
-  "Beverages",
-  "Snacks",
-  "Frozen",
-  "Bakery",
-  "Pantry"
-];
-let budget=20
+const modal = document.getElementById("addModal");
 
-  function updateEmptyState(){
-  emptyState.style.display = items.length ? "none" : "block";
+function openModal(){ modal.classList.remove("hidden"); }
+modal.onclick = () => modal.classList.add("hidden");
+document.querySelector(".modal-box").onclick = e => e.stopPropagation();
+
+function addItem(){
+  const name = nameInput.value.trim();
+  const qty = Number(qtyInput.value) || 0;
+  const price = Number(priceInput.value) || 0;
+  const category = catInput.value || "Other";
+  if(!name) return;
+
+  let item = items.find(i=>i.name===name && i.category===category);
+  if(!item){
+    item = {name,category,entries:[]};
+    items.push(item);
   }
-  function openAddItem(){
-  addModal.classList.remove("hidden");
+  item.entries.push({qty,price});
+
+  modal.classList.add("hidden");
+  nameInput.value=qtyInput.value=priceInput.value=catInput.value="";
+  render();
 }
 
-function saveItem(){
-  const name = itemName.value.trim();
-  const qty = Number(itemQty.value) || 0;
-  const price = Number(itemPrice.value) || 0;
-  const category = itemCategory.value.trim() || "Other";
-
-  // NAME is required
-  if(!name){
-    itemName.style.borderColor = "red";
-    return;
-  }
-  itemName.style.borderColor = "#ddd";
-
-  // qty/price must come together (or both empty)
-  if((qty && !price) || (!qty && price)){
-    itemQty.style.borderColor = "red";
-    itemPrice.style.borderColor = "red";
-    return;
-  }
-  itemQty.style.borderColor = "#ddd";
-  itemPrice.style.borderColor = "#ddd";
-
-  // ✅ DEFINE existing (this was missing)
-  const existing = items.find(
-    i => i.name.toLowerCase() === name.toLowerCase() &&
-         i.category.toLowerCase() === category.toLowerCase()
-  );
-
-  const entry = { qty, price };
-
-  if(existing){
-    existing.entries.push(entry);
-  }else{
-    items.push({
-      name,
-      category,
-      entries: [entry]
-    });
-  }
-
-  addModal.classList.add("hidden");
-
-  itemName.value = "";
-  itemQty.value = "";
-  itemPrice.value = "";
-  itemCategory.value = "";
-
+function render(){
   renderBudget();
   renderItems();
-  }
-  
-function renderBudget(){
-  let total = 0;
-  let entryCount = 0;
+}
 
-  items.forEach(item=>{
-    item.entries.forEach(e=>{
-      total += e.qty * e.price;
-      entryCount += e.qty;
-    });
+function renderBudget(){
+  let total=0, count=0;
+  items.forEach(i=>i.entries.forEach(e=>{
+    total+=e.qty*e.price;
+    count+=e.qty;
+  }));
+  totalSpent.textContent=`$${total.toFixed(2)}`;
+  avgItem.textContent=count?`$${(total/count).toFixed(2)}`:`$0`;
+  itemCount.textContent=count;
+
+  const remaining = budget-total;
+  remainAmount.textContent=`$${Math.abs(remaining).toFixed(2)}`;
+  remainLabel.textContent=remaining>=0?"Remaining":"Over budget";
+
+  const percent=(total/budget)*100;
+  budgetFill.style.width=Math.min(percent,120)+"%";
+
+  budgetCard.className="budget-card "+(percent<70?"green":percent<=100?"yellow":"red");
+  budgetFill.className="budget-fill "+(percent<70?"green":percent<=100?"yellow":"red");
+}
+
+function renderItems(){
+  itemList.innerHTML="";
+  emptyState.style.display=items.length?"none":"block";
+
+  const cats=[...new Set(items.map(i=>i.category))];
+  filterBar.innerHTML=`<button class="filter-btn ${activeFilter==="All"?"active":""}" onclick="activeFilter='All';render()">All</button>`;
+  cats.forEach(c=>{
+    filterBar.innerHTML+=`<button class="filter-btn ${activeFilter===c?"active":""}" onclick="activeFilter='${c}';render()">${c}</button>`;
   });
 
+  items.filter(i=>activeFilter==="All"||i.category===activeFilter)
+  .forEach(item=>{
+    const totalQty=item.entries.reduce((s,e)=>s+e.qty,0);
+    const totalPrice=item.entries.reduce((s,e)=>s+e.qty*e.price,0);
+
+    const card=document.createElement("div");
+    card.className="item-card";
+    card.innerHTML=`
+      <div class="item-image"><span class="material-icons-outlined">local_cafe</span></div>
+      <div class="item-info">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">Qty: ${item.entries[0].qty} • $${item.entries[0].price}</div>
+        <div class="item-details">${item.entries.slice(1).map(e=>`Qty:${e.qty} • $${e.price}`).join("<br>")}</div>
+      </div>
+      <div class="item-total">${totalQty} items<br>$${totalPrice.toFixed(2)}</div>
+    `;
+    if(item.entries.length>1){
+      card.onclick=()=>card.classList.toggle("expanded");
+    }
+    itemList.appendChild(card);
+  });
+}
+
+render();
+</script>
+</body>
+  </html>
   const remaining = budget - total;
   const avg = entryCount ? total / entryCount : 0;
   const percent = (total / budget) * 100;
