@@ -554,6 +554,19 @@ function renderBudget(){
     budgetFill.classList.add("red");
   }
   }
+  const card = document.querySelector(".budget-card");
+card.className = "budget-card";
+
+if(percent < 70){
+  budgetFill.classList.add("green");
+  card.classList.add("green");
+}else if(percent <= 100){
+  budgetFill.classList.add("yellow");
+  card.classList.add("yellow");
+}else{
+  budgetFill.classList.add("red");
+  card.classList.add("red");
+  }
 
   function renderItems(){
   itemList.innerHTML = "";
