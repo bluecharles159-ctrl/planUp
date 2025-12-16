@@ -200,13 +200,13 @@ main{padding:16px}
 /* ===== ITEM CARD ===== */
 .item-card{
   display:flex;
-  align-items:flex-start;  /* allows vertical drop */
+  align-items:stretch;        /* important */
   gap:12px;
-  padding:14px 12px;       /* more vertical padding */
+  padding:14px 12px;
   border-radius:14px;
   background:#f7f7f7;
   margin-bottom:12px;
-  }
+}
 
 .item-image{
   width:46px;
@@ -239,11 +239,13 @@ main{padding:16px}
 }
 
 .item-total{
-  font-weight:600;
-  font-size:14px;
-  color:#222;              /* NOT green */
-  margin-top:6px;          /* drops it down */
-  }
+  margin-top:auto;        /* pushes it to the bottom */
+  text-align:right;
+  font-size:12px;         /* smaller */
+  font-weight:400;        /* NOT bold */
+  color:#333;
+  line-height:1.3;
+}
 
 /* ===== NAV ===== */
 nav{
