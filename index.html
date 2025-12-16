@@ -630,19 +630,23 @@ if(percent < 70){
       let totalPrice = 0;
 
       const details = document.createElement("div");
-      details.className = "item-details";
+details.className = "item-details";
 
-      item.entries.forEach(e=>{
-        totalQty += e.qty;
-        totalPrice += e.qty * e.price;
+item.entries.forEach((e, index)=>{
+  const d = document.createElement("div");
+  d.className = "item-meta";
+  d.textContent = `Qty: ${e.qty} • $${e.price}`;
 
-        if(e.qty && e.price){
-          const d = document.createElement("div");
-          d.className = "item-meta";
-          d.textContent = `Qty: ${e.qty} • $${e.price}`;
-          details.appendChild(d);
-        }
-      });
+  // only first entry visible by default
+  if(index === 0){
+    d.style.display = "block";
+  }else{
+    d.style.display = "none";
+    d.classList.add("extra-entry");
+  }
+
+  details.appendChild(d);
+});
 
       const card = document.createElement("div");
       card.className = "item-card";
