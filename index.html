@@ -577,6 +577,8 @@
 ‎      const details = document.createElement("div");  
 ‎details.className = "item-details";  
 ‎  
+  totalQty += e.qty;
+totalPrice += e.qty * e.price;
 ‎item.entries.forEach((e, index)=>{  
 ‎  const d = document.createElement("div");  
 ‎  d.className = "item-meta";  
