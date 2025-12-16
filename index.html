@@ -117,6 +117,22 @@ main{padding:16px}
   background:#f4f4f4; /* slightly darker than before */
       }
 
+  .item-details{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease, opacity .25s ease;
+  opacity:0;
+}
+
+.item-card.expanded .item-details{
+  max-height:300px;   /* enough for many entries */
+  opacity:1;
+}
+
+  .budget-fill.green{ background:#2fb67c; }
+.budget-fill.yellow{ background:#f1c40f; }
+.budget-fill.red{ background:#e74c3c; }
+
 /* ===== EMPTY STATE ===== */
 .empty{
   text-align:center;
