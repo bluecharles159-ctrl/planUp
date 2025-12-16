@@ -482,35 +482,41 @@ let budget=20
 
 function saveItem(){
   const name = itemName.value.trim();
-  const qty = Number(itemQty.value);
-  const price = Number(itemPrice.value);
-  const category = itemCategory.value.trim();
+  const qty = Number(itemQty.value) || 0;
+  const price = Number(itemPrice.value) || 0;
+  const category = itemCategory.value.trim() || "Other";
 
+  // NAME is required
   if(!name){
-  itemName.style.borderColor = "red";
-  return;
-}
+    itemName.style.borderColor = "red";
+    return;
+  }
+  itemName.style.borderColor = "#ddd";
 
-itemName.style.borderColor = "#ddd";
+  // qty/price must come together (or both empty)
+  if((qty && !price) || (!qty && price)){
+    itemQty.style.borderColor = "red";
+    itemPrice.style.borderColor = "red";
+    return;
+  }
+  itemQty.style.borderColor = "#ddd";
+  itemPrice.style.borderColor = "#ddd";
 
-if((qty && !price) || (!qty && price)){
-  itemQty.style.borderColor = "red";
-  itemPrice.style.borderColor = "red";
-  return;
-}
+  // ✅ DEFINE existing (this was missing)
+  const existing = items.find(
+    i => i.name.toLowerCase() === name.toLowerCase() &&
+         i.category.toLowerCase() === category.toLowerCase()
+  );
 
-itemQty.style.borderColor = "#ddd";
-itemPrice.style.borderColor = "#ddd";
-
-const safeCategory = category || "Other";
+  const entry = { qty, price };
 
   if(existing){
-    existing.entries.push({ qty, price });
+    existing.entries.push(entry);
   }else{
     items.push({
       name,
       category,
-      entries: [{ qty, price }]
+      entries: [entry]
     });
   }
 
