@@ -359,10 +359,44 @@
   </div>
       </main>
 
+  <main id="profilePage" style="display:none;">
+  <div class="category-card">
+    <div class="category-title">Profile</div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Budget</div>
+        <div class="item-meta">$20.00</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Total Items Added</div>
+        <div class="item-meta" id="profileItemCount">0</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Categories Used</div>
+        <div class="item-meta" id="profileCategories">0</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Version</div>
+        <div class="item-meta">PlanUp v1.0</div>
+      </div>
+    </div>
+  </div>
+  </main>
+
 <nav>
   <button onclick="showHome()">Home</button>
   <button onclick="showInsights()">Insights</button>
-  <button>Profile</button>
+  <button onclick="showProfile()">Profile</button>
 </nav>
 
 <script>
