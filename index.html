@@ -259,13 +259,38 @@
       border:none;
       background:none;
     }
+
+    header{
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+}
+
+header.center-title{
+  justify-content:space-between;
+}
+
+header.left-title{
+  justify-content:flex-start;
+}
+
+header.left-title h2{
+  margin-left:0;
+}
+
+header.center-title h2{
+  margin:0 auto;
+    }
   </style>
 </head>
 
 <body>
 
-<header>
-  <span class="material-icons-outlined">menu</span>
+<header id="appHeader">
+  <span class="material-icons-outlined" id="menuIcon">menu</span>
   <h2 id="pageTitle">My List</h2>
   <span class="material-icons-outlined" id="notifyIcon">notifications</span>
 </header>
