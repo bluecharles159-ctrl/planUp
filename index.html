@@ -325,9 +325,43 @@
   </div>
 </div>
 
+      <main id="insightsPage" style="display:none;">
+  <div class="category-card">
+    <div class="category-title">Overview</div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Total Spent</div>
+        <div class="item-meta" id="insightTotal">$0.00</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Budget Used</div>
+        <div class="item-meta" id="insightPercent">0%</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Total Items</div>
+        <div class="item-meta" id="insightItems">0</div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <div class="item-name">Top Category</div>
+        <div class="item-meta" id="insightTopCategory">—</div>
+      </div>
+    </div>
+  </div>
+      </main>
+
 <nav>
-  <button>Home</button>
-  <button>Insights</button>
+  <button onclick="showHome()">Home</button>
+  <button onclick="showInsights()">Insights</button>
   <button>Profile</button>
 </nav>
 
