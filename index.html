@@ -721,6 +721,31 @@ function showProfile(){
   profileCategories.textContent = categories.size;
   }
 
+  function setHeader(mode){
+  const header = document.getElementById("appHeader");
+
+  header.classList.remove("center-title","left-title");
+
+  if(mode === "home"){
+    header.classList.add("center-title");
+    menuIcon.style.display = "block";
+    notifyIcon.style.display = "block";
+  }else{
+    header.classList.add("left-title");
+    menuIcon.style.display = "none";
+    notifyIcon.style.display = "none";
+  }
+}
+
+function showProfile(){
+  pageTitle.textContent = "Profile";
+  setHeader("other");
+
+  document.querySelector("main").style.display = "none";
+  insightsPage.style.display = "none";
+  profilePage.style.display = "block";
+    }
+
   render();
 </script>
 
