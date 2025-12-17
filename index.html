@@ -541,6 +541,57 @@ function renderInsights(){
   insightTopCategory.textContent = topCat;
   }
 
+  const homePage = document.querySelector("main");
+const insightsPage = document.getElementById("insightsPage");
+const profilePage = document.getElementById("profilePage");
+
+function showHome(){
+  pageTitle.textContent = "My List";
+  searchBar.style.display = "flex";
+  notifyIcon.style.display = "block";
+
+  homePage.style.display = "block";
+  insightsPage.style.display = "none";
+  profilePage.style.display = "none";
+}
+
+function showInsights(){
+  pageTitle.textContent = "Insights";
+  searchBar.style.display = "none";
+  notifyIcon.style.display = "none";
+
+  homePage.style.display = "none";
+  insightsPage.style.display = "block";
+  profilePage.style.display = "none";
+
+  renderInsights();
+}
+
+function showProfile(){
+  pageTitle.textContent = "Profile";
+  searchBar.style.display = "none";
+  notifyIcon.style.display = "none";
+
+  homePage.style.display = "none";
+  insightsPage.style.display = "none";
+  profilePage.style.display = "block";
+
+  renderProfile();
+  }
+
+  function renderProfile(){
+  let itemCount = 0;
+  const categories = new Set();
+
+  items.forEach(item=>{
+    item.entries.forEach(e=> itemCount += e.qty);
+    categories.add(item.category);
+  });
+
+  profileItemCount.textContent = itemCount;
+  profileCategories.textContent = categories.size;
+  }
+
   render();
 </script>
 
