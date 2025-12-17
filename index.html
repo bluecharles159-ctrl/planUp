@@ -775,6 +775,30 @@ function showProfile(){
     show ? "flex" : "none";
   }
 
+  function updateProfile(){
+  loginCard.style.display = isLoggedIn ? "none" : "flex";
+  }
+
+  isLoggedIn = true;
+updateProfile();
+
+  function switchPage(page){
+  currentPage = page;
+
+  document.getElementById("homePage").style.display =
+    page === "home" ? "block" : "none";
+
+  document.getElementById("insightsPage").style.display =
+    page === "insights" ? "block" : "none";
+
+  document.getElementById("profilePage").style.display =
+    page === "profile" ? "block" : "none";
+
+  updateHeader();
+  updateFloatingButtons();
+  if(page === "profile") updateProfile();
+  }
+
   render();
 </script>
 
