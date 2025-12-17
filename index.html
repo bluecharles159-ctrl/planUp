@@ -464,6 +464,49 @@
     });
   }
 
+  function showHome(){
+  document.querySelector("main").style.display = "block";
+  insightsPage.style.display = "none";
+}
+
+function showInsights(){
+  document.querySelector("main").style.display = "none";
+  insightsPage.style.display = "block";
+  renderInsights();
+}
+
+function renderInsights(){
+  let total = 0;
+  let count = 0;
+  const categoryTotals = {};
+
+  items.forEach(item=>{
+    let catTotal = 0;
+    item.entries.forEach(e=>{
+      total += e.qty * e.price;
+      count += e.qty;
+      catTotal += e.qty * e.price;
+    });
+    categoryTotals[item.category] =
+      (categoryTotals[item.category] || 0) + catTotal;
+  });
+
+  insightTotal.textContent = `$${total.toFixed(2)}`;
+  insightItems.textContent = count;
+  insightPercent.textContent =
+    budget ? Math.min((total/budget)*100,100).toFixed(1)+"%" : "0%";
+
+  let topCat = "—";
+  let max = 0;
+  for(const c in categoryTotals){
+    if(categoryTotals[c] > max){
+      max = categoryTotals[c];
+      topCat = c;
+    }
+  }
+  insightTopCategory.textContent = topCat;
+  }
+
   render();
 </script>
 
