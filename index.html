@@ -763,6 +763,16 @@ function showProfile(){
   }
   }
 
+  function updateFloatingButtons(){
+  const show = currentPage === "home";
+
+  document.querySelector(".fab-wrapper").style.display =
+    show ? "block" : "none";
+
+  document.querySelector(".scan-btn").style.display =
+    show ? "flex" : "none";
+  }
+
   render();
 </script>
 
