@@ -746,6 +746,23 @@ function showProfile(){
   profilePage.style.display = "block";
     }
 
+  function updateHeader(){
+  pageTitle.textContent =
+    currentPage === "home" ? "My List" :
+    currentPage === "insights" ? "Insights" : "Profile";
+
+  // Home → show menu + notification
+  if(currentPage === "home"){
+    menuIcon.style.display = "block";
+    notifyIcon.style.display = "block";
+  } 
+  // Insights & Profile → hide them
+  else {
+    menuIcon.style.display = "none";
+    notifyIcon.style.display = "none";
+  }
+  }
+
   render();
 </script>
 
