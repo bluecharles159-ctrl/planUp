@@ -59,10 +59,21 @@
       gap:16px;
     }
 
-    .budget-left{display:flex;gap:10px;flex:1}
+    .budget-left{
+  display:flex;
+  align-items:center;   /* THIS is the key */
+  gap:10px;
+  flex:1;
+}
     .right{text-align:right;min-width:90px}
 
-    .trend{font-size:28px;color:#2fb67c}
+.trend{
+  font-size:28px;
+  color:#2fb67c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  }
 
     .label{font-size:13px;color:#666}
     .amount{font-size:22px;font-weight:700;color:#2fb67c}
