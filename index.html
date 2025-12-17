@@ -672,14 +672,18 @@ function renderInsights(){
   insightTopCategory.textContent = topCat;
   }
 
-  const homePage = document.querySelector("main");
+const homePage = document.querySelector("main");
 const insightsPage = document.getElementById("insightsPage");
 const profilePage = document.getElementById("profilePage");
 
 function showHome(){
   pageTitle.textContent = "My List";
   searchBar.style.display = "flex";
+  menuIcon.style.display = "block";
   notifyIcon.style.display = "block";
+
+  document.querySelector(".fab-wrapper").style.display = "block";
+  document.querySelector(".scan-btn").style.display = "flex";
 
   homePage.style.display = "block";
   insightsPage.style.display = "none";
@@ -689,7 +693,11 @@ function showHome(){
 function showInsights(){
   pageTitle.textContent = "Insights";
   searchBar.style.display = "none";
+  menuIcon.style.display = "none";
   notifyIcon.style.display = "none";
+
+  document.querySelector(".fab-wrapper").style.display = "none";
+  document.querySelector(".scan-btn").style.display = "none";
 
   homePage.style.display = "none";
   insightsPage.style.display = "block";
@@ -701,14 +709,18 @@ function showInsights(){
 function showProfile(){
   pageTitle.textContent = "Profile";
   searchBar.style.display = "none";
+  menuIcon.style.display = "none";
   notifyIcon.style.display = "none";
+
+  document.querySelector(".fab-wrapper").style.display = "none";
+  document.querySelector(".scan-btn").style.display = "none";
 
   homePage.style.display = "none";
   insightsPage.style.display = "none";
   profilePage.style.display = "block";
 
   renderProfile();
-  }
+}
 
   function renderProfile(){
   let itemCount = 0;
