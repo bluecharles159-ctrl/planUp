@@ -289,9 +289,21 @@ header.center-title h2{
   background:#fff;
   border-radius:20px;
   padding:16px;
-  margin-bottom:16px;
+  margin-bottom:18px;
   box-shadow:0 8px 24px rgba(0,0,0,.06);
+  display:flex;
+  flex-direction:column;
 }
+
+.profile-btn{
+  margin-top:auto; /* pushes button to bottom */
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#2f80ed;
+  color:#fff;
+  font-size:15px;
+  }
 
 .profile-title{
   font-size:16px;
@@ -306,16 +318,6 @@ header.center-title h2{
   border-radius:12px;
   border:1px solid #ddd;
   font-size:14px;
-}
-
-.profile-btn{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:#2f80ed;
-  color:#fff;
-  font-size:15px;
 }
 
 .profile-row{
@@ -476,13 +478,13 @@ header.center-title h2{
   <main id="profilePage" style="display:none; padding:16px;">
   
   <!-- LOGIN CARD -->
-  <div class="profile-card" id="loginCard">
-    <div class="profile-title">Login</div>
+  <div id="loginCard" class="profile-card">
+  <h3>Login</h3>
 
-    <input class="profile-input" placeholder="Username">
-    <input class="profile-input" type="password" placeholder="Password">
+  <input class="profile-input" placeholder="Email">
+  <input class="profile-input" type="password" placeholder="Password">
 
-    <button class="profile-btn">Login</button>
+  <button class="profile-btn">Sign In</button>
   </div>
 
   <!-- PROFILE CONTENT -->
