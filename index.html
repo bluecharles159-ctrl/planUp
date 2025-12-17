@@ -284,6 +284,61 @@ header.left-title h2{
 header.center-title h2{
   margin:0 auto;
     }
+
+      .profile-card{
+  background:#fff;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+
+.profile-title{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:12px;
+}
+
+.profile-input{
+  width:100%;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-size:14px;
+}
+
+.profile-btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:#2f80ed;
+  color:#fff;
+  font-size:15px;
+}
+
+.profile-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.profile-row span{
+  font-size:22px;
+  color:#2f80ed;
+}
+
+.profile-label{
+  font-size:12px;
+  color:#777;
+}
+
+.profile-value{
+  font-size:14px;
+  font-weight:600;
+      }
+    
   </style>
 </head>
 
@@ -416,6 +471,55 @@ header.center-title h2{
       </div>
     </div>
   </div>
+  </main>
+
+  <main id="profilePage" style="display:none; padding:16px;">
+  
+  <!-- LOGIN CARD -->
+  <div class="profile-card" id="loginCard">
+    <div class="profile-title">Login</div>
+
+    <input class="profile-input" placeholder="Username">
+    <input class="profile-input" type="password" placeholder="Password">
+
+    <button class="profile-btn">Login</button>
+  </div>
+
+  <!-- PROFILE CONTENT -->
+  <div id="profileContent" style="display:none;">
+    
+    <div class="profile-card">
+      <div class="profile-row">
+        <span class="material-icons-outlined">person</span>
+        <div>
+          <div class="profile-label">Username</div>
+          <div class="profile-value">Amirbaqian</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-row">
+        <span class="material-icons-outlined">shopping_cart</span>
+        <div>
+          <div class="profile-label">Total Items</div>
+          <div class="profile-value" id="profileItemCount">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-row">
+        <span class="material-icons-outlined">category</span>
+        <div>
+          <div class="profile-label">Categories Used</div>
+          <div class="profile-value" id="profileCategories">0</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   </main>
 
 <nav>
