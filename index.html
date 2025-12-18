@@ -975,6 +975,17 @@ updateProfile();
   if(page === "profile") updateProfile();
   }
 
+  function openDrawer(){
+  document.getElementById("appDrawer").classList.add("open");
+  document.getElementById("drawerOverlay").classList.add("show");
+}
+
+function closeDrawer(){
+  document.getElementById("appDrawer").classList.remove("open");
+  document.getElementById("drawerOverlay").classList.remove("show");
+  }
+  
+
   render();
 </script>
 
