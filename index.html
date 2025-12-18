@@ -438,6 +438,17 @@ header.center-title h2{
   font-size:18px;
   color:#555;
     }
+
+    .drawer-item.active{
+  background:#f0f0f0;
+  font-weight:600;
+}
+
+nav button.active{
+  color:#000;
+  font-weight:600;
+      }
+    
     
   </style>
 </head>
@@ -961,6 +972,20 @@ function showProfile(){
   insightsPage.style.display = "none";
   profilePage.style.display = "block";
   }
+
+  function setActiveNav(page){
+  document.querySelectorAll("nav button").forEach(b=>{
+    b.classList.toggle("active", b.textContent === page);
+  });
+
+  document.querySelectorAll(".drawer-item").forEach(item=>{
+    item.classList.toggle(
+      "active",
+      item.textContent.trim() === page
+    );
+  });
+  }
+  
 
   render();
 </script>
