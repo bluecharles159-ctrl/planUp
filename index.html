@@ -793,17 +793,6 @@ header.center-title h2{
     });
   }
 
-  function showHome(){
-  document.querySelector("main").style.display = "block";
-  insightsPage.style.display = "none";
-}
-
-function showInsights(){
-  document.querySelector("main").style.display = "none";
-  insightsPage.style.display = "block";
-  renderInsights();
-}
-
 function renderInsights(){
   let total = 0;
   let count = 0;
@@ -836,56 +825,6 @@ function renderInsights(){
   insightTopCategory.textContent = topCat;
   }
 
-const homePage = document.querySelector("main");
-const insightsPage = document.getElementById("insightsPage");
-const profilePage = document.getElementById("profilePage");
-
-function showHome(){
-  pageTitle.textContent = "My List";
-  searchBar.style.display = "flex";
-  menuIcon.style.display = "block";
-  notifyIcon.style.display = "block";
-
-  document.querySelector(".fab-wrapper").style.display = "block";
-  document.querySelector(".scan-btn").style.display = "flex";
-
-  homePage.style.display = "block";
-  insightsPage.style.display = "none";
-  profilePage.style.display = "none";
-}
-
-function showInsights(){
-  pageTitle.textContent = "Insights";
-  searchBar.style.display = "none";
-  menuIcon.style.display = "none";
-  notifyIcon.style.display = "none";
-
-  document.querySelector(".fab-wrapper").style.display = "none";
-  document.querySelector(".scan-btn").style.display = "none";
-
-  homePage.style.display = "none";
-  insightsPage.style.display = "block";
-  profilePage.style.display = "none";
-
-  renderInsights();
-}
-
-function showProfile(){
-  pageTitle.textContent = "Profile";
-  searchBar.style.display = "none";
-  menuIcon.style.display = "none";
-  notifyIcon.style.display = "none";
-
-  document.querySelector(".fab-wrapper").style.display = "none";
-  document.querySelector(".scan-btn").style.display = "none";
-
-  homePage.style.display = "none";
-  insightsPage.style.display = "none";
-  profilePage.style.display = "block";
-
-  renderProfile();
-}
-
   function renderProfile(){
   let itemCount = 0;
   const categories = new Set();
@@ -915,15 +854,6 @@ function showProfile(){
   }
 }
 
-function showProfile(){
-  pageTitle.textContent = "Profile";
-  setHeader("other");
-
-  document.querySelector("main").style.display = "none";
-  insightsPage.style.display = "none";
-  profilePage.style.display = "block";
-    }
-
   function updateHeader(){
   pageTitle.textContent =
     currentPage === "home" ? "My List" :
@@ -951,13 +881,6 @@ function showProfile(){
     show ? "flex" : "none";
   }
 
-  function updateProfile(){
-  loginCard.style.display = isLoggedIn ? "none" : "flex";
-  }
-
-  isLoggedIn = true;
-updateProfile();
-
   function switchPage(page){
   currentPage = page;
 
@@ -984,7 +907,60 @@ function closeDrawer(){
   document.getElementById("appDrawer").classList.remove("open");
   document.getElementById("drawerOverlay").classList.remove("show");
   }
-  
+
+  const homePage = document.getElementById("homePage");
+const insightsPage = document.getElementById("insightsPage");
+const profilePage = document.getElementById("profilePage");
+
+function showHome(){
+  setActiveNav("Home");
+
+  pageTitle.textContent = "My List";
+  searchBar.style.display = "flex";
+  menuIcon.style.display = "block";
+  notifyIcon.style.display = "block";
+
+  document.querySelector(".fab-wrapper").style.display = "block";
+  document.querySelector(".scan-btn").style.display = "flex";
+
+  homePage.style.display = "block";
+  insightsPage.style.display = "none";
+  profilePage.style.display = "none";
+}
+
+function showInsights(){
+  setActiveNav("Insights");
+
+  pageTitle.textContent = "Insights";
+  searchBar.style.display = "none";
+  menuIcon.style.display = "none";
+  notifyIcon.style.display = "none";
+
+  document.querySelector(".fab-wrapper").style.display = "none";
+  document.querySelector(".scan-btn").style.display = "none";
+
+  homePage.style.display = "none";
+  insightsPage.style.display = "block";
+  profilePage.style.display = "none";
+
+  renderInsights();
+}
+
+function showProfile(){
+  setActiveNav("Profile");
+
+  pageTitle.textContent = "Profile";
+  searchBar.style.display = "none";
+  menuIcon.style.display = "none";
+  notifyIcon.style.display = "none";
+
+  document.querySelector(".fab-wrapper").style.display = "none";
+  document.querySelector(".scan-btn").style.display = "none";
+
+  homePage.style.display = "none";
+  insightsPage.style.display = "none";
+  profilePage.style.display = "block";
+  }
 
   render();
 </script>
