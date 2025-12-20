@@ -937,7 +937,10 @@ function showProfile(){
   homePage.style.display = "none";
   insightsPage.style.display = "none";
   profilePage.style.display = "block";
-  }
+
+  document.getElementById("profileContent").style.display = "block";
+  renderProfile();
+}
 
   function setActiveNav(page){
   document.querySelectorAll("nav button").forEach(b=>{
